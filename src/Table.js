@@ -1,5 +1,6 @@
 (function (window, $) {
     var lite = window.lite;
+
     lite.Table = lite.Widget.extend({
         initialize: function (options) {
             lite.Table.superclass.initialize.call(this, options);

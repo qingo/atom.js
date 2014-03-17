@@ -2,21 +2,23 @@
     var lite = window.lite;
     lite.Widget = lite.Class.create({
         initialize: function (options) {
+            options = options || {};
             this.prepare(options);
-            this.id = options.id;
+            this.id = options.id || lite.cid();
             this.selector = options.selector || document;
             this.$el = $(this.selector);
             this.render().initEvents(options.events).delegateEvents();
         },
-        prepare: function(options){
-
+        prepare: function (options) {
+            return this;
         },
         render: function () {
-
+            return this;
         },
 
         initEvents: function (events) {
-            lite.mix(this.events,events);
+            lite.mix(this.events, events);
+            return this;
         },
         delegateEvents: function () {
             var key, keys, selector, event, method;

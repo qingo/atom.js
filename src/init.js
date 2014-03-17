@@ -1,4 +1,5 @@
 (function (window, $) {
+    var _cid = 0;
     window.lite = {
         isObject: isType("Object"),
         isString: isType("String"),
@@ -16,6 +17,9 @@
                     }
                 }
             }
+        },
+        cid: function () {
+            return _cid++
         }
     };
     function isType(type) {
