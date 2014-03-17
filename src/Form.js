@@ -11,6 +11,7 @@
         },
         render: function () {
             this.$el = $('<div class="form"></div>')
+
         },
         addItem: function (type, widget) {
             var wid = new window[type](widget);
