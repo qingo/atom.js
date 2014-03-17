@@ -1,12 +1,13 @@
 (function (window, $) {
-    window.Page = Widget.extend({
+    var lite = window.lite;
+    lite.Page = lite.Widget.extend({
         initialize: function (options) {
-            Page.superclass.initialize.call(this,options);
+            lite.Page.superclass.initialize.call(this,options);
         },
         addItem: function (type, widget) {
-            var index = userRight[widget.id];
+            var index = lite.userRight[widget.id];
             if (index && this.checkRight(widget.id,index)) {
-                var wid = new window[type](widget);
+                var wid = new lite[type](widget);
                 this.$el.append(wid.$el);
             }
             return this;

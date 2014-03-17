@@ -1,5 +1,6 @@
 (function (window, $) {
-    window.Parameter = Class.create({
+    var lite = window.lite;
+    lite.Parameter = lite.Class.create({
         initialize: function () {
 
         },

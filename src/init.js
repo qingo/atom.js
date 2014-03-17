@@ -1,5 +1,5 @@
 (function (window, $) {
-    window.util = {
+    window.lite = {
         isObject: isType("Object"),
         isString: isType("String"),
         isArray: Array.isArray || isType("Array"),

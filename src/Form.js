@@ -1,22 +1,23 @@
 (function (window, $) {
-    window.Form = Widget.extend({
+    var lite = window.lite;
+    lite.Form = lite.Widget.extend({
         initialize: function (options) {
-            Form.superclass.initialize.call(this, options);
+            lite.Form.superclass.initialize.call(this, options);
         },
-        prepare: function (events) {
+        prepare: function (options) {
             this.events = {
                 'init .submit': 'submit',
                 'click .submit': 'submit'
             };
             this.observers = {};
-            this.parameters = new Parameter();
+            this.parameters = new lite.Parameter();
         },
         render: function () {
             this.$el = $('<div class="form"></div>')
 
         },
         addItem: function (type, widget) {
-            var wid = new window[type](widget);
+            var wid = new lite[type](widget);
             this.$el.append(wid.$el);
             return this;
         },
@@ -42,11 +43,11 @@
             this.observers[observer.id] = observer;
         },
         getObserver: function (observerId) {
-            util.isString(observerId) || (observerId = observerId.id);
+            lite.isString(observerId) || (observerId = observerId.id);
             return this.observers[observerId];
         },
         removeObserver: function (observer) {
-            util.isString(observerId) || (observerId = observerId.id);
+            lite.isString(observerId) || (observerId = observerId.id);
             delete this.observers[observerId];
         }
     })

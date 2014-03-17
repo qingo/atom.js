@@ -1,7 +1,8 @@
 (function (window, $) {
-    window.Chart = Widget.extend({
+    var lite = window.lite;
+    lite.Chart = lite.Widget.extend({
         initialize: function (options) {
-            Chart.superclass.initialize.call(this, options);
+            lite.Chart.superclass.initialize.call(this, options);
         },
         render: function () {
             this.$el = $('<div class="Chart"></div>')

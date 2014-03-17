@@ -1,13 +1,14 @@
 (function (window, $) {
-    window.Widget = Class.create({
+    var lite = window.lite;
+    lite.Widget = lite.Class.create({
         initialize: function (options) {
-            this.prepare();
+            this.prepare(options);
             this.id = options.id;
             this.selector = options.selector || document;
             this.$el = $(this.selector);
             this.render().initEvents(options.events).delegateEvents();
         },
-        prepare: function(){
+        prepare: function(options){
 
         },
         render: function () {
@@ -15,7 +16,7 @@
         },
 
         initEvents: function (events) {
-            util.mix(this.events,events);
+            lite.mix(this.events,events);
         },
         delegateEvents: function () {
             var key, keys, selector, event, method;
@@ -23,7 +24,7 @@
                 keys = key.split(/\s+/);
                 event = keys[0];
                 selector = keys[1];
-                if (util.isFunction(this.events[key])) {
+                if (lite.isFunction(this.events[key])) {
                     method = this.events[key]
                 } else {
                     method = this[this.events[key]];
@@ -42,7 +43,7 @@
                 keys = key.split(/\s+/);
                 event = keys[0];
                 selector = keys[1];
-                if (util.isFunction(this.events[key])) {
+                if (lite.isFunction(this.events[key])) {
                     method = this.events[key]
                 } else {
                     method = this[this.events[key]];

@@ -1,10 +1,13 @@
 (function (window, $) {
-    window.Table = Widget.extend({
+    var lite = window.lite;
+    lite.Table = lite.Widget.extend({
         initialize: function (options) {
-            Table.superclass.initialize.call(this, options);
+            lite.Table.superclass.initialize.call(this, options);
         },
-        prepare: function(){
+        prepare: function(options){
             this.events = {};
+            this.header = options.header;
+            this.keys = options.keys;
         },
         render: function () {
             this.$el = $('<div class="table"></div>');
@@ -15,7 +18,7 @@
             return this;
         },
         refresh: function (url, data) {
-            util.isString(url)
+            lite.isString(url) || (url = url.toUrl());
             this.createBody().createPagination();
             return this;
         },
@@ -35,7 +38,7 @@
             return this;
         },
         addItem: function (type, widget) {
-            var wid = new window[type](widget);
+            var wid = new lite[type](widget);
             this.$el.append(wid.$el);
             return this;
         }
