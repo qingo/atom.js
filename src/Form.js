@@ -1,16 +1,14 @@
 (function (window, $) {
     window.Form = Widget.extend({
         initialize: function (options) {
-            this.observers = {};
             Form.superclass.initialize.call(this, options);
         },
-        initEvents: function (events) {
+        prepare: function (events) {
             this.events = {
                 'init .submit': 'submit',
                 'click .submit': 'submit'
             };
-        },
-        initParameter: function () {
+            this.observers = {};
             this.parameters = new Parameter();
         },
         render: function () {

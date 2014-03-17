@@ -1,16 +1,21 @@
 (function (window, $) {
     window.Widget = Class.create({
         initialize: function (options) {
+            this.prepare();
             this.id = options.id;
             this.selector = options.selector || document;
             this.$el = $(this.selector);
             this.render().initEvents(options.events).delegateEvents();
         },
+        prepare: function(){
+
+        },
         render: function () {
 
         },
+
         initEvents: function (events) {
-            this.events = {};
+            util.mix(this.events,events);
         },
         delegateEvents: function () {
             var key, keys, selector, event, method;
