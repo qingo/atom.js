@@ -5,14 +5,14 @@
         },
         addItem: function (type, widget) {
             var index = userRight[widget.id];
-            if (index && this.checkRight(index)) {
+            if (index && this.checkRight(widget.id,index)) {
                 var wid = new window[type](widget);
                 this.$el.append(wid.$el);
             }
             return this;
         },
-        checkRight: function (index) {
-            return !!+this.userRight.charAt(index);
+        checkRight: function (id,index) {
+            return !!+this.userRight[id].toString(2).charAt(index);
         },
         addNav: function (nav) {
             this.addItem('Nav', nav);
@@ -61,9 +61,6 @@
         getSelect: function (id) {
 
         }
-
-
-
 
     });
 })(window, $);
