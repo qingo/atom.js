@@ -1,30 +1,35 @@
 (function (window, $) {
     window.Form = Widget.extend({
         initialize: function (options) {
-            Form.superclass.initialize();
-            this.id = options.id;
-
-            this.event = {
+            this.observers = [];
+            Form.superclass.initialize.call(this, options);
+        },
+        initEvents: function (events) {
+            this.events = {
                 'click .submit': 'submit'
             };
-            this.render().delegateEvents();
-
-
         },
         render: function () {
             this.$el = $('<div class="form"></div>')
         },
-        show: function () {
-
-        },
         addItem: function (type, widget) {
-
             var wid = new window[type](widget);
             this.$el.append(wid.$el);
             return this;
+        },
+        submit: function () {
+            var obs = this.observers,
+                k;
+            for(k in obs){
+                obs[k].refresh();
+            }
+        },
+        addObserver: function (observer) {
+
+
+        },
+        removeObserver: function (observer) {
+
         }
-
-
-
     })
 })(window, $);

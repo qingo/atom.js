@@ -1,10 +1,7 @@
 (function (window, $) {
     window.Page = Widget.extend({
         initialize: function (options) {
-            Page.superclass.initialize();
-            this.selector = options.selector || document;
-            this.$el = $(this.selector);
-            this.delegateEvents();
+            Page.superclass.initialize.call(this,options);
         },
         addItem: function (type, widget) {
             var index = userRight[widget.id];

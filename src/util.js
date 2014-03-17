@@ -3,7 +3,7 @@
         isObject: isType("Object"),
         isString: isType("String"),
         isArray: Array.isArray || isType("Array"),
-        isFuntion: isType("Function"),
+        isFunction: isType("Function"),
         mix: function (r, s, wl) {
             // Copy "all" properties including inherited ones.
             for (var p in s) {

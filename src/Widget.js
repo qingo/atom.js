@@ -1,9 +1,16 @@
-(function(window,$){
+(function (window, $) {
     window.Widget = Class.create({
-        initialize: function(){
-            this.events = {};
-            this.selector = document;
+        initialize: function (options) {
+            this.id = options.id;
+            this.selector = options.selector || document;
             this.$el = $(this.selector);
+            this.render().initEvents(options.events).delegateEvents();
+        },
+        render: function () {
+
+        },
+        initEvents: function (events) {
+            this.events = {};
         },
         delegateEvents: function () {
             var key, keys, selector, event, method;
@@ -11,13 +18,13 @@
                 keys = key.split(/\s+/);
                 event = keys[0];
                 selector = keys[1];
-                if(util.isFunction(this.events[key])){
+                if (util.isFunction(this.events[key])) {
                     method = this.events[key]
-                }else{
+                } else {
                     method = this[this.events[key]];
                 }
                 if (event === 'init') {
-                    method.call(this,selector);
+                    method.call(this, selector);
                 } else {
                     this.$el.off(event, selector, method).on(event, selector, method);
                 }
@@ -30,9 +37,9 @@
                 keys = key.split(/\s+/);
                 event = keys[0];
                 selector = keys[1];
-                if(util.isFunction(this.events[key])){
+                if (util.isFunction(this.events[key])) {
                     method = this.events[key]
-                }else{
+                } else {
                     method = this[this.events[key]];
                 }
                 this.$el.off(event, selector, method).on(event, selector, method);
@@ -40,4 +47,4 @@
             return this;
         }
     });
-})(window,$);
+})(window, $);
