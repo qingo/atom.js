@@ -5,7 +5,7 @@
             options = options || {};
             this.prepare(options);
             this.id = options.id || lite.cid();
-            this.selector = options.selector || document;
+            this.selector = options.selector || 'body';
             this.$el = $(this.selector);
             this.render().initEvents(options.events).delegateEvents();
         },

@@ -3,10 +3,10 @@
     lite.Page = lite.Widget.extend({
         addItem: function (type, widget) {
             var index = lite.userRight[widget.id];
-            if (index && this.checkRight(widget.id,index)) {
+//            if (index && this.checkRight(widget.id,index)) {
                 var wid = new lite[type](widget);
-                this.$el.append(wid.$el);
-            }
+                this.$el.append(wid.$el[0].outerHTML);
+//            }
             return this;
         },
         checkRight: function (id,index) {
