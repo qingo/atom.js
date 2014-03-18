@@ -1,16 +1,30 @@
 (function (window, $) {
     var lite = window.lite;
     lite.Page = lite.Widget.extend({
-        addItem: function (type, widget) {
-            var index = lite.userRight[widget.id];
-//            if (index && this.checkRight(widget.id,index)) {
-                var wid = new lite[type](widget);
-                this.$el.append(wid.$el[0].outerHTML);
-//            }
+        prepare: function (options) {
+            var that = this;
+            this.userRight = options.userRight || 0;
+            this.url = options.url || '';
+            this.url && $.ajax({
+                url: this.url,
+                cache: false,
+                async: false,
+                success: function (data) {
+                    that.userRight = data;
+                }
+            });
             return this;
         },
-        checkRight: function (id,index) {
-            return !!+this.userRight[id].toString(2).charAt(index);
+        addItem: function (type, widget) {
+            var index = lite.rightIndex[widget.id];
+            if (index && this.checkRight(widget.id, index)) {
+                var wid = new lite[type](widget);
+                this.$el.append(wid.$el[0].outerHTML);
+            }
+            return this;
+        },
+        checkRight: function (id, index) {
+            return !!+this.userRight.toString(2).charAt(index);
         },
         addNav: function (nav) {
             this.addItem('Nav', nav);

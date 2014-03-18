@@ -22,7 +22,7 @@
         submit: function () {
             var that = this;
             $.ajax({
-                url: this.url,
+                url: this.url + that.parameters.toUrl(),
                 cache: false,
                 success: function (data) {
                     var obs = that.observers,

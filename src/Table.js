@@ -6,6 +6,7 @@
             this.events = {};
             this.header = options.header;
             this.keys = options.keys;
+            return this;
         },
         render: function () {
             this.$el = $('<div class="table"></div>');

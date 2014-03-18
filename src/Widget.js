@@ -8,6 +8,7 @@
             this.selector = options.selector || 'body';
             this.$el = $(this.selector);
             this.render().initEvents(options.events).delegateEvents();
+            return this;
         },
         prepare: function (options) {
             return this;

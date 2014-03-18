@@ -1,6 +1,7 @@
 (function(window){
     var lite = window.lite;
-    lite.userRight = {
-        'maButton1' : 2
+    lite.rightIndex = {
+        'table': 2,
+        'form' : 3
     }
 })(window);
