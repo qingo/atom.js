@@ -1,9 +1,6 @@
 (function (window, $) {
     var lite = window.lite;
     lite.Page = lite.Widget.extend({
-        initialize: function (options) {
-            lite.Page.superclass.initialize.call(this,options);
-        },
         addItem: function (type, widget) {
             var index = lite.userRight[widget.id];
             if (index && this.checkRight(widget.id,index)) {

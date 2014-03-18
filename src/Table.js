@@ -2,9 +2,6 @@
     var lite = window.lite;
 
     lite.Table = lite.Widget.extend({
-        initialize: function (options) {
-            lite.Table.superclass.initialize.call(this, options);
-        },
         prepare: function(options){
             this.events = {};
             this.header = options.header;

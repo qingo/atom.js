@@ -1,9 +1,6 @@
 (function (window, $) {
     var lite = window.lite;
     lite.Form = lite.Widget.extend({
-        initialize: function (options) {
-            lite.Form.superclass.initialize.call(this, options);
-        },
         prepare: function (options) {
             this.events = {
                 'init .submit': 'submit',
@@ -11,10 +8,11 @@
             };
             this.observers = {};
             this.parameters = new lite.Parameter();
+            return this;
         },
         render: function () {
-            this.$el = $('<div class="form"></div>')
-
+            this.$el = $('<div class="form"></div>');
+            return this;
         },
         addItem: function (type, widget) {
             var wid = new lite[type](widget);

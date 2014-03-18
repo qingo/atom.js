@@ -9,12 +9,16 @@
 <script type="text/javascript" src="../src/init.js"></script>
 <script type="text/javascript" src="../lib/Class.js"></script>
 <script type="text/javascript" src="../src/Widget.js"></script>
+<script type="text/javascript" src="../src/Parameter.js"></script>
 <script type="text/javascript" src="../src/Page.js"></script>
 <script type="text/javascript" src="../src/Form.js"></script>
 <script type="text/javascript" src="../src/Button.js"></script>
 <script type="text/javascript" src="../src/userRight.js"></script>
 <script type="text/javascript">
     var page = new lite.Page();
+    var form = new lite.Form();
+    page.addForm(form);
+    console.log(form);
 </script>
 </body>
 </html>
