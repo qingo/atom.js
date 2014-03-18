@@ -2,10 +2,11 @@
     var lite = window.lite;
 
     lite.Table = lite.Widget.extend({
-        prepare: function(options){
+        prepare: function (options) {
             this.events = {};
             this.header = options.header;
             this.keys = options.keys;
+
             return this;
         },
         render: function () {
@@ -22,8 +23,53 @@
             return this;
         },
         createHeader: function () {
+            var header = [
+                {
+                    title: '0',
+                    content: ['0-0', '0-1']
+                },
+                {
+                    title: '1',
+                    content: ['1-0', '1-1']
+                },
+                {
+                    title: '2',
+                    content: ['2-0', '2-1']
+                },
+                {
+                    title: '3',
+                    content: ['3-0', '3-1']
+                },
+                {
+                    title: '4',
+                    content: ['4-0', '4-1']
+                },
+                {
+                    title: '5',
+                    content: ['5-0', {
+                        title: '5-1',
+                        content: ['5-1-0', '5-1-0']
+                    }]
+                }
 
+            ];
+            this.$header.html(create(header));
             this.$el.append(this.$header);
+
+            function create(content) {
+                var i,html = '';
+                if (lite.isArray(content)) {
+                    for (i = 0; i < content.length; i++) {
+                        html += '<div class="item">' + create(content[i]) + '</div>'
+                    }
+                } else if (lite.isObject(content)) {
+                    html += '<div class="title">' + content.title + '</div>' +
+                        '<div class="row">' + create(content.content) + '</div>'
+                } else {
+                    html += '<div class="item">' + content + '</div>'
+                }
+                return html;
+            }
             return this;
         },
         createBody: function () {
@@ -33,6 +79,7 @@
         },
         createPagination: function () {
 
+
             this.$el.append(this.$Pagination);
             return this;
         },
@@ -41,5 +88,24 @@
             this.$el.append(wid.$el);
             return this;
         }
-    })
+    });
+    function Pagination(size, sizeInPage) {
+        this.size = size;
+        this.sizeInPage = sizeInPage;
+        this.cur = 0;
+        this.isFirst = !this.cur;
+        this.isLast = !((this.size / this.sizeInPage) - this.cur);
+        this.isPrev = !(this.cur - 10);
+        this.isNext = !((this.size / this.sizeInPage) - this.cur - 10);
+    }
+
+    Pagination.prototype = {
+        render: function () {
+
+        },
+        refresh: function () {
+
+        }
+
+    };
 })(window, $);
