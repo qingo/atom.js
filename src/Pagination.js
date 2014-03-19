@@ -8,7 +8,6 @@
             this.setProperties(options.dataSize, options.cur, options.dataSizeInPage, options.SizeInPage);
         },
         setProperties: function (dataSize, cur, dataSizeInPage, SizeInPage) {
-            console.log(arguments);
             this.dataSize = +dataSize;
             this.dataSizeInPage = +dataSizeInPage || 10;
             this.size = Math.ceil(this.dataSize / this.dataSizeInPage);
