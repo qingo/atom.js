@@ -18,8 +18,9 @@
         addItem: function (type, widget) {
             var index = lite.rightIndex[widget.id];
             if (index && this.checkRight(widget.id, index)) {
-                var wid = new lite[type](widget);
-                this.$el.append(wid.$el[0].outerHTML);
+                this.$el.append(widget.$el);
+                widget.parent = this;
+                widget.delegateEvents();
             }
             return this;
         },

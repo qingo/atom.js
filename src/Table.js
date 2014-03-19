@@ -13,13 +13,13 @@
             this.$el = $('<div class="table fl"></div>');
             this.$header = $('<div class="table-header fl clearfix"></div>');
             this.$body = $('<div class="table-body"></div>');
-            this.$Pagination = $('<div class="table-Pagination"></div>');
-            this.createHeader().createBody().createPagination();
+            this.$Pagination = $('<ul class="table-Pagination fl clearfix"></ul>');
+            this.createHeader().createBody().addPagination();
             return this;
         },
         refresh: function (url, data) {
             lite.isString(url) || (url = url.toUrl());
-            this.createBody().createPagination();
+            this.createBody().addPagination();
             return this;
         },
         createHeader: function () {
@@ -74,19 +74,17 @@
             return this;
         },
         createBody: function () {
-
             this.$el.append(this.$body);
             return this;
         },
-        createPagination: function () {
-            this.pagination = new lite.Pagination({selector:this.$Pagination,dataSize:110,SizeInPage:10});
-
+        addPagination: function () {
+            this.pagination = new lite.Pagination({
+                selector: this.$Pagination,
+                dataSize: 230,
+                SizeInPage: 10});
             this.$el.append(this.$Pagination);
-            return this;
-        },
-        addItem: function (type, widget) {
-            var wid = new lite[type](widget);
-            this.$el.append(wid.$el);
+            this.pagination.parent = this;
+            this.pagination.delegateEvents();
             return this;
         }
     });

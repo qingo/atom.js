@@ -7,9 +7,11 @@
             this.id = options.id || lite.cid();
             this.selector = options.selector || 'body';
             this.$el = $(this.selector);
-            this.render().initEvents(options.events).delegateEvents();
+            this.$el[0].lite = this;
+            this.render().initEvents(options.events);
             return this;
         },
+        constructor: lite.Widget,
         prepare: function (options) {
             return this;
         },
