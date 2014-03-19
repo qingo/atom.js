@@ -1,0 +1,88 @@
+/*html 5 reset start*/
+abbr, address, cite, code, del, dfn, ins, kbd, q, samp, small, sub, sup, var, b, i {
+    margin: 0;
+    padding: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+}
+
+section, article, aside, header, footer, nav, figure {
+    display: block;
+}
+
+section {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/*html 5 reset end*/
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body, input, textarea, button {
+    font: 12px/18px "\5FAE\8F6F\96C5\9ED1", Helvetica, Arial, Verdana, "\5B8B\4F53";
+    color: #666666;
+    word-wrap: break-word;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+span {
+    vertical-align: baseline;
+}
+
+ol, ul, menu {
+    list-style: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+dt {
+    font-weight: bold;
+}
+
+em {
+    font-style: normal;
+}
+
+a {
+    color: #666666;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+img {
+    border: none;
+}
+
+.clearfix {
+    *zoom: 1
+}
+
+.clearfix:before, .clearfix:after {
+    display: table;
+    content: ""
+}
+
+.clearfix:after {
+    clear: both
+}
+
+.fl {
+    float: left
+}
+
+.fr {
+    float: right
+}

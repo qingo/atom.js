@@ -6,12 +6,12 @@
             this.events = {};
             this.header = options.header;
             this.keys = options.keys;
-
+            this.useTable = options.useTable || true;
             return this;
         },
         render: function () {
-            this.$el = $('<div class="table"></div>');
-            this.$header = $('<div class="table-header"></div>');
+            this.$el = $('<div class="table fl"></div>');
+            this.$header = $('<div class="table-header fl clearfix"></div>');
             this.$body = $('<div class="table-body"></div>');
             this.$Pagination = $('<div class="table-Pagination"></div>');
             this.createHeader().createBody().createPagination();
@@ -57,19 +57,20 @@
             this.$el.append(this.$header);
 
             function create(content) {
-                var i,html = '';
+                var i, html = '';
                 if (lite.isArray(content)) {
                     for (i = 0; i < content.length; i++) {
-                        html += '<div class="item">' + create(content[i]) + '</div>'
+                        html += '<div class="item fl">' + create(content[i]) + '</div>'
                     }
                 } else if (lite.isObject(content)) {
                     html += '<div class="title">' + content.title + '</div>' +
-                        '<div class="row">' + create(content.content) + '</div>'
+                        '<div class="row clearfix">' + create(content.content) + '</div>'
                 } else {
-                    html += '<div class="item">' + content + '</div>'
+                    html += content;
                 }
                 return html;
             }
+
             return this;
         },
         createBody: function () {
@@ -78,7 +79,7 @@
             return this;
         },
         createPagination: function () {
-
+            this.pagination = new lite.Pagination({selector:this.$Pagination,dataSize:110,SizeInPage:10});
 
             this.$el.append(this.$Pagination);
             return this;
@@ -89,23 +90,5 @@
             return this;
         }
     });
-    function Pagination(size, sizeInPage) {
-        this.size = size;
-        this.sizeInPage = sizeInPage;
-        this.cur = 0;
-        this.isFirst = !this.cur;
-        this.isLast = !((this.size / this.sizeInPage) - this.cur);
-        this.isPrev = !(this.cur - 10);
-        this.isNext = !((this.size / this.sizeInPage) - this.cur - 10);
-    }
 
-    Pagination.prototype = {
-        render: function () {
-
-        },
-        refresh: function () {
-
-        }
-
-    };
 })(window, $);

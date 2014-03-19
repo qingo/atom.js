@@ -3,11 +3,28 @@
 <head>
     <meta charset="utf-8"/>
     <title></title>
+    <link rel="stylesheet" type="text/css" href="common.css"/>
+    <style type="text/css">
+        .table{
+            margin: 100px;
+        }
+        .table-header{
+            border: 1px solid #CCCCCC;
+        }
+        .table .row{
+            border-top: 1px solid #CCCCCC;
+        }
+        .table .item{
+            border-left: 1px solid #CCCCCC;
+            margin-left: -1px;
+        }
+    </style>
     <script type="text/javascript" src="../lib/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="../src/init.js"></script>
     <script type="text/javascript" src="../lib/Class.js"></script>
     <script type="text/javascript" src="../src/Widget.js"></script>
     <script type="text/javascript" src="../src/Parameter.js"></script>
+    <script type="text/javascript" src="../src/Pagination.js"></script>
     <script type="text/javascript" src="../src/Page.js"></script>
     <script type="text/javascript" src="../src/Form.js"></script>
     <script type="text/javascript" src="../src/Table.js"></script>
@@ -30,6 +47,61 @@
     </script>
 </head>
 <body>
+<table border="1">
+    <tr>
+        <th>www.dreamdu.com</th>
+        <th>.com域名的数量</th>
+        <th>.cn域名的数量</th>
+        <th>.net域名的数量</th>
+        <th>总数</th>
+    </tr>
+    <tr>
+        <td>2003年</td>
+        <td>1000</td>
+        <td rowspan="2">2000+5000</td>
+        <td>3000</td>
+        <td rowspan="3">24000</td>
+    </tr>
+    <tr>
+        <td>2004年</td>
+        <td rowspan="2">4000+7000</td>
+        <td>6000</td>
+    </tr>
+    <tr>
+        <td>2005年</td>
+        <td>8000</td>
+        <td>9000</td>
+    </tr>
+</table>
+<table border="1">
+    <tr>
+        <th>www.dreamdu.com</th>
+        <th>.com域名的数量</th>
+        <th>.cn域名的数量</th>
+        <th>.net域名的数量</th>
+    </tr>
+    <tr>
+        <td>2003年</td>
+        <td>1000</td>
+        <td colspan="2">2000+3000</td>
+    </tr>
+    <tr>
+        <td>2004年</td>
+        <td>4000</td>
+        <td>5000</td>
+        <td>6000</td>
+    </tr>
+    <tr>
+        <td>2005年</td>
+        <td>7000</td>
+        <td>8000</td>
+        <td>9000</td>
+    </tr>
+    <tr>
+        <td>总数</td>
+        <td colspan="3">24000</td>
+    </tr>
+</table>
 <div id="main"></div>
 </body>
 </html>
