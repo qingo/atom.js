@@ -5,7 +5,7 @@
 
         },
         toUrl: function () {
-
+            return ''
         }
     })
 })(window, $);

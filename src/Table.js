@@ -18,8 +18,9 @@
             return this;
         },
         refresh: function (url, data) {
+            console.log(url);
             lite.isString(url) || (url = url.toUrl());
-            this.createBody().addPagination();
+            this.createBody(data).addPagination(url);
             return this;
         },
         createHeader: function () {
@@ -77,8 +78,9 @@
             this.$el.append(this.$body);
             return this;
         },
-        addPagination: function () {
+        addPagination: function (url) {
             this.pagination = new lite.Pagination({
+                url: url,
                 selector: this.$Pagination,
                 dataSize: 230,
                 SizeInPage: 10});

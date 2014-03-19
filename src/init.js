@@ -20,6 +20,22 @@
         },
         cid: function () {
             return _cid++
+        },
+        observer: {
+            setParameter: function () {
+
+            },
+            addObserver: function (observer) {
+                this.observers[observer.id] = observer;
+            },
+            getObserver: function (observerId) {
+                lite.isString(observerId) || (observerId = observerId.id);
+                return this.observers[observerId];
+            },
+            removeObserver: function (observer) {
+                lite.isString(observerId) || (observerId = observerId.id);
+                delete this.observers[observerId];
+            }
         }
     };
     function isType(type) {

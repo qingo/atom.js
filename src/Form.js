@@ -1,11 +1,13 @@
 (function (window, $) {
     var lite = window.lite;
     lite.Form = lite.Widget.extend({
+        Implements: lite.observer,
         prepare: function (options) {
             this.events = {
                 'init .submit': 'submit',
                 'click .submit': 'submit'
             };
+            this.url = options.url || '';
             this.observers = {};
             this.parameters = new lite.Parameter();
             return this;
@@ -33,20 +35,6 @@
                 }
             });
 
-        },
-        setParameter: function () {
-
-        },
-        addObserver: function (observer) {
-            this.observers[observer.id] = observer;
-        },
-        getObserver: function (observerId) {
-            lite.isString(observerId) || (observerId = observerId.id);
-            return this.observers[observerId];
-        },
-        removeObserver: function (observer) {
-            lite.isString(observerId) || (observerId = observerId.id);
-            delete this.observers[observerId];
         }
     })
 })(window, $);

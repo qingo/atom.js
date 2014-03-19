@@ -1,11 +1,14 @@
 (function (window, $) {
     var lite = window.lite;
     lite.Pagination = lite.Widget.extend({
+        Implements: lite.observer,
         prepare: function (options) {
             this.events = {
                 'click .usable': 'go'
             };
+            this.url = options.url || '';
             this.setProperties(options.dataSize, options.cur, options.dataSizeInPage, options.SizeInPage);
+            return this;
         },
         setProperties: function (dataSize, cur, dataSizeInPage, SizeInPage) {
             this.dataSize = +dataSize;
