@@ -1,80 +1,47 @@
+/**
+ * @file Page
+ * @author qingo
+ * @desc 在页面建立lite.js的挂载点，作为页面内其他模块的挂载点，初始化页面。
+ * 一般一个页面需要只需要一个page对象，并设置权限相关的参数。
+ */
 (function (window, $) {
     var lite = window.lite;
+    /**
+     * @name Page
+     * @class 在页面建立lite的挂载点
+     * @constructor
+     * @extends Widget
+     * @memberof lite
+     * @type {void|*}
+     * @example
+     *
+     */
     lite.Page = lite.Widget.extend({
-        prepare: function (options) {
-            var that = this;
-            this.userRight = options.userRight || 0;
+        /**
+         * @method lite.Page#_prepare
+         * @desc Page的圆形方法_prepare主要是用来设置权限的，其中lite对象上的userRight用来存放整个页面和权限相关的参数
+         * @param {object} options
+         * @param {String} options.userRight
+         * @param {String} options.url
+         * @returns {window.lite.Page}
+         */
+        _prepare: function (options) {
+            lite.userRight = options.userRight || 0;
+            /**
+             * @public
+             * @name url
+             * @type {*|url|window.lite.Table.pagination.url|string|.ajaxSettings.url|.ajaxSettings.flatOptions.url}
+             */
             this.url = options.url || '';
             this.url && $.ajax({
                 url: this.url,
                 cache: false,
                 async: false,
                 success: function (data) {
-                    that.userRight = data;
+                    lite.userRight = data;
                 }
             });
             return this;
-        },
-        addItem: function (type, widget) {
-            var index = lite.rightIndex[widget.id];
-            if (index && this.checkRight(widget.id, index)) {
-                this.$el.append(widget.$el);
-                widget.parent = this;
-                widget.delegateEvents();
-
-            }
-            return this;
-        },
-        checkRight: function (id, index) {
-            return !!+this.userRight.toString(2).charAt(index);
-        },
-        addNav: function (nav) {
-            this.addItem('Nav', nav);
-            return this;
-        },
-        addForm: function (form) {
-            this.addItem('Form', form);
-            return this;
-        },
-        addTable: function (table) {
-            this.addItem('Table', table);
-            return this;
-        },
-        addPopUp: function (popUp) {
-
-        },
-        addButton: function (btn) {
-
-        },
-        addInput: function (input) {
-
-        },
-        addSelect: function (select) {
-
-        },
-        getItem: function (id) {
-        },
-        getNav: function (id) {
-
-        },
-        getForm: function (id) {
-            return this.members[id];
-        },
-        getTable: function (id) {
-
-        },
-        getPopUp: function (id) {
-
-        },
-        getButton: function (id) {
-
-        },
-        getInput: function (id) {
-
-        },
-        getSelect: function (id) {
-
         }
-
     });
 })(window, $);

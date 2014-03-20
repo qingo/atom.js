@@ -5,28 +5,80 @@
     <title></title>
     <link rel="stylesheet" type="text/css" href="common.css"/>
     <style type="text/css">
-        .table{
+        .table {
             margin: 100px;
         }
-        .table-header{
+
+        .table-header {
             border: 1px solid #CCCCCC;
         }
-        .table .row{
+
+        .table .row {
             border-top: 1px solid #CCCCCC;
         }
-        .table .item{
+
+        .table .item {
             border-left: 1px solid #CCCCCC;
             margin-left: -1px;
+            vertical-align: middle;
+            height: 100%;
+            text-align: center;
         }
-        .table .table-Pagination li{
+
+        .table .table-Pagination li {
             padding: 2px;
             margin-left: 1px;
             border: 1px solid #CCCCCC;
             cursor: pointer;
         }
-        .table .table-Pagination .current{
+
+        .table .table-Pagination .current {
             color: #0608CC;
             border: 1px solid #0608CC;
+        }
+
+        .table .item-0 {
+            width: 30px;
+        }
+
+        .table .item-1 {
+            width: 40px;
+        }
+
+        .table .item-2 {
+            width: 40px;
+        }
+
+        .table .item-3 {
+            width: 40px;
+        }
+
+        .table .item-4 {
+            width: 24px;
+        }
+
+        .table .item-5 {
+            width: 20px;
+        }
+
+        .table .item-6 {
+            width: 50px;
+        }
+
+        .table .item-7 {
+            width: 40px;
+        }
+
+        .table .item-8 {
+            width: 20px;
+        }
+
+        .table .item-11 {
+            width: 90px;
+        }
+
+        .table .item-12 {
+            width: 70px;
         }
     </style>
     <script type="text/javascript" src="../lib/jquery-1.10.2.min.js"></script>
@@ -42,29 +94,65 @@
     <script type="text/javascript" src="../src/rightIndex.js"></script>
     <script type="text/javascript">
         $(function () {
-            var page = new lite.Page({id:'page',userRight: 15});
+            var header = [
+                        {
+                            title: '0',
+                            content: ['0-0', '0-1']
+                        },
+                        {
+                            title: '1',
+                            content: ['1-0', '1-1']
+                        },
+                        {
+                            title: '2',
+                            content: ['2-0', '2-1']
+                        },
+                        {
+                            title: '3',
+                            content: ['3-0', '3-1']
+                        },
+                        {
+                            title: '4',
+                            content: ['4-0', '4-1']
+                        },
+                        {
+                            title: '5',
+                            content: ['5-0', {
+                                title: '5-1',
+                                content: ['5-1-0', '5-1-0']
+                            }]
+                        }
+                    ],
+                    keys = ['id', 'name', 'desc', 'age'],
+                    data = [
+                        {
+                            id: 1,
+                            name: 'qingo',
+                            desc: 'me',
+                            age: '..'
+                        },
+                        {
+                            id: 2,
+                            name: 'qingo',
+                            desc: 'me',
+                            age: '..'
+                        },
+                        {
+                            id: 3,
+                            name: 'qingo',
+                            desc: 'me',
+                            age: '..'
+                        }
+                    ];
+            var page = new lite.Page({id: 'page', userRight: 15});
 
             var form = new lite.Form({id: 'form'});
-            page.addForm(form);
+            page.addItem(form);
 
-            var table = new lite.Table({id: 'table',keys:['id','name','desc','age'],data:[{
-                id: 1,
-                name: 'qingo',
-                desc: 'me',
-                age: '..'
-            },{
-                id: 2,
-                name: 'qingo',
-                desc: 'me',
-                age: '..'
-            },{
-                id: 3,
-                name: 'qingo',
-                desc: 'me',
-                age: '..'
-            }]
+            var table = new lite.Table({id: 'table', keys: keys, data: data,
+                header: header
             });
-            page.addTable(table);
+            page.addItem(table);
 
 //            var input = new lite.Input({id:'xxx',name:'xxx',value:'默认值'});
             form.addObserver(table);

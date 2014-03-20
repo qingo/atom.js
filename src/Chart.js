@@ -1,7 +1,7 @@
 (function (window, $) {
     var lite = window.lite;
     lite.Chart = lite.Widget.extend({
-        render: function () {
+        _render: function () {
             this.$el = $('<div class="Chart"></div>');
             return this;
         },

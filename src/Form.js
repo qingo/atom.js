@@ -2,7 +2,7 @@
     var lite = window.lite;
     lite.Form = lite.Widget.extend({
         Implements: lite.observer,
-        prepare: function (options) {
+        _prepare: function (options) {
             this.events = {
                 'init .submit': 'submit',
                 'click .submit': 'submit'
@@ -12,7 +12,7 @@
             this.filter = new lite.Filter();
             return this;
         },
-        render: function () {
+        _render: function () {
             this.$el = $('<div class="form"></div>');
             return this;
         },

@@ -1,29 +1,28 @@
 (function (window, $) {
     var lite = window.lite;
     lite.Widget = lite.Class.create({
+        constructor: lite.Widget,
         initialize: function (options) {
             options = options || {};
-            this.prepare(options);
             this.id = options.id || lite.cid();
             this.selector = options.selector || 'body';
             this.$el = $(this.selector);
             this.$el[0].lite = this;
-            this.render().initEvents(options.events);
+            this._prepare(options)._render().delegateEvents(options.events);
             return this;
         },
-        constructor: lite.Widget,
-        prepare: function (options) {
+        _prepare: function (options) {
             return this;
         },
-        render: function () {
+        _render: function () {
             return this;
         },
-
-        initEvents: function (events) {
+        setEvents: function (events) {
             lite.mix(this.events, events);
             return this;
         },
-        delegateEvents: function () {
+        delegateEvents: function (events) {
+            events || this.setEvents(events);
             var key, keys, selector, event, method;
             for (key in this.events) {
                 keys = key.split(/\s+/);
@@ -54,6 +53,17 @@
                     method = this[this.events[key]];
                 }
                 this.$el.off(event, selector, method).on(event, selector, method);
+            }
+            return this;
+        },
+        _checkRight: function (id, index) {
+            return !!+lite.userRight.toString(2).charAt(index);
+        },
+        addItem: function (widget) {
+            var index = lite.rightIndex[widget.id];
+            if (index && this._checkRight(widget.id, index)) {
+                this.$el.append(widget.$el);
+                widget.parent = this;
             }
             return this;
         }
