@@ -66,16 +66,16 @@ img {
     border: none;
 }
 
-.clearfix {
+.clr {
     *zoom: 1
 }
 
-.clearfix:before, .clearfix:after {
+.clr:before, .clr:after {
     display: table;
     content: ""
 }
 
-.clearfix:after {
+.clr:after {
     clear: both
 }
 

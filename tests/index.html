@@ -19,8 +19,8 @@
             margin-left: -1px;
         }
         .table .table-Pagination li{
-            padding: 4px;
-            margin-left: 2px;
+            padding: 2px;
+            margin-left: 1px;
             border: 1px solid #CCCCCC;
             cursor: pointer;
         }
@@ -33,7 +33,7 @@
     <script type="text/javascript" src="../src/init.js"></script>
     <script type="text/javascript" src="../lib/Class.js"></script>
     <script type="text/javascript" src="../src/Widget.js"></script>
-    <script type="text/javascript" src="../src/Parameter.js"></script>
+    <script type="text/javascript" src="../src/Filter.js"></script>
     <script type="text/javascript" src="../src/Pagination.js"></script>
     <script type="text/javascript" src="../src/Page.js"></script>
     <script type="text/javascript" src="../src/Form.js"></script>
@@ -42,15 +42,31 @@
     <script type="text/javascript" src="../src/rightIndex.js"></script>
     <script type="text/javascript">
         $(function () {
-            var page = new lite.Page({userRight: 15});
+            var page = new lite.Page({id:'page',userRight: 15});
 
             var form = new lite.Form({id: 'form'});
             page.addForm(form);
 
-            var table = new lite.Table({id: 'table'});
+            var table = new lite.Table({id: 'table',keys:['id','name','desc','age'],data:[{
+                id: 1,
+                name: 'qingo',
+                desc: 'me',
+                age: '..'
+            },{
+                id: 2,
+                name: 'qingo',
+                desc: 'me',
+                age: '..'
+            },{
+                id: 3,
+                name: 'qingo',
+                desc: 'me',
+                age: '..'
+            }]
+            });
             page.addTable(table);
 
-            console.log(form);
+//            var input = new lite.Input({id:'xxx',name:'xxx',value:'默认值'});
             form.addObserver(table);
 //            form.addInput();
 //            form.addButton();

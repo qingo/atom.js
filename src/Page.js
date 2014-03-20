@@ -21,6 +21,7 @@
                 this.$el.append(widget.$el);
                 widget.parent = this;
                 widget.delegateEvents();
+
             }
             return this;
         },

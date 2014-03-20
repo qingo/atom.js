@@ -9,7 +9,7 @@
             };
             this.url = options.url || '';
             this.observers = {};
-            this.parameters = new lite.Parameter();
+            this.filter = new lite.Filter();
             return this;
         },
         render: function () {
@@ -24,13 +24,13 @@
         submit: function () {
             var that = this;
             $.ajax({
-                url: this.url + that.parameters.toUrl(),
+                url: this.url + that.filter.toUrl(),
                 cache: false,
                 success: function (data) {
                     var obs = that.observers,
                         k;
                     for (k in obs) {
-                        obs[k].refresh(that.url + that.parameters.toUrl(), data);
+                        obs[k].refresh(that.url + that.filter.toUrl(), data);
                     }
                 }
             });

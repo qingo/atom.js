@@ -2,23 +2,26 @@
     var lite = window.lite;
 
     lite.Table = lite.Widget.extend({
+        Implements: lite.observer,
         prepare: function (options) {
-            this.events = {};
+            this.events = {
+                'click .tr': 'detail'
+            };
             this.header = options.header;
             this.keys = options.keys;
+            this.data = options.data;
             this.useTable = options.useTable || true;
             return this;
         },
         render: function () {
             this.$el = $('<div class="table fl"></div>');
-            this.$header = $('<div class="table-header fl clearfix"></div>');
-            this.$body = $('<div class="table-body"></div>');
-            this.$Pagination = $('<ul class="table-Pagination fl clearfix"></ul>');
+            this.$header = $('<ul class="table-header clr"></ul>');
+            this.$body = $('<div class="table-body clr"></div>');
+            this.$Pagination = $('<ul class="table-Pagination clr"></ul>');
             this.createHeader().createBody().addPagination();
             return this;
         },
         refresh: function (url, data) {
-            console.log(url);
             lite.isString(url) || (url = url.toUrl());
             this.createBody(data).addPagination(url);
             return this;
@@ -52,7 +55,6 @@
                         content: ['5-1-0', '5-1-0']
                     }]
                 }
-
             ];
             this.$header.html(create(header));
             this.$el.append(this.$header);
@@ -61,11 +63,11 @@
                 var i, html = '';
                 if (lite.isArray(content)) {
                     for (i = 0; i < content.length; i++) {
-                        html += '<div class="item fl">' + create(content[i]) + '</div>'
+                        html += '<li class="item fl">' + create(content[i]) + '</li>'
                     }
                 } else if (lite.isObject(content)) {
                     html += '<div class="title">' + content.title + '</div>' +
-                        '<div class="row clearfix">' + create(content.content) + '</div>'
+                        '<ul class="row clr">' + create(content.content) + '</ul>'
                 } else {
                     html += content;
                 }
@@ -75,6 +77,16 @@
             return this;
         },
         createBody: function () {
+            var html = '', keys = this.keys,data = this.data, i, j;
+            for (i = 0; i < data.length; i++) {
+                html += '<ul class="clr">';
+                for(j = 0;j<keys.length;j++) {
+                    console.log(data[i][keys[j]]);
+                    html += '<li class="fl">'+ data[i][keys[j]] + '</li>';
+                }
+                html +='</ul>'
+            }
+            this.$body.html(html);
             this.$el.append(this.$body);
             return this;
         },
@@ -88,6 +100,9 @@
             this.pagination.parent = this;
             this.pagination.delegateEvents();
             return this;
+        },
+        detail: function () {
+
         }
     });
 
