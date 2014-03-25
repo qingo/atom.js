@@ -27,11 +27,7 @@
          */
         _prepare: function (options) {
             lite.userRight = options.userRight || 0;
-            /**
-             * @public
-             * @name url
-             * @type {*|url|window.lite.Table.pagination.url|string|.ajaxSettings.url|.ajaxSettings.flatOptions.url}
-             */
+            this.$this = $(document.body);
             this.url = options.url || '';
             this.url && $.ajax({
                 url: this.url,

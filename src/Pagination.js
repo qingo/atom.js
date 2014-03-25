@@ -3,6 +3,7 @@
     lite.Pagination = lite.Widget.extend({
         Implements: lite.observer,
         _prepare: function (options) {
+            this.$this = $('<ul class="table-pagination clr"></ul>');
             this.events = {
                 'click .usable': 'go'
             };
@@ -37,9 +38,8 @@
             html += '<li class="item fl ' + click[this.isLast] + '" data-index="+1">\></li>' +
                 '<li class="item fl ' + click[this.isNext] + '" data-index="+10">\>\></li>' +
                 '<li class="item fl ' + click[this.isLast] + '" data-index="' + (this.size - 1) + '">\>\|</li>';
-            this.$el.html(html);
+            this.$this.html(html);
             return this;
-
         },
         go: function () {
             var that = $(arguments[0].delegateTarget)[0].lite;

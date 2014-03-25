@@ -19,8 +19,8 @@
                 }
             }
         },
-        cid: function () {
-            return _cid++
+        cid: function (t) {
+            return t + _cid++
         },
         observer: {
             setParameter: function () {

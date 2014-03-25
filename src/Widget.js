@@ -4,17 +4,25 @@
         constructor: lite.Widget,
         initialize: function (options) {
             options = options || {};
-            this.id = options.id || lite.cid();
-            this.selector = options.selector || 'body';
-            this.$el = $(this.selector);
-            this.$el[0].lite = this;
-            this._prepare(options)._render().delegateEvents(options.events);
+            this.id = options.id || lite.cid(this.type);
+            this.parent = options.parent || null;
+            console.log(this);
+            this._prepare(options)._render().show().delegateEvents(options.events);
+            this.$this[0].lite = this;
             return this;
         },
-        _prepare: function (options) {
+        _prepare: function (o) {
             return this;
         },
         _render: function () {
+            return this;
+        },
+        show: function (parent) {
+            this.parent = parent || this.parent;
+            if(this.parent){
+                this.$parent = this.parent.$this || $(this.parent);
+                this.$parent.append(this.$this);
+            }
             return this;
         },
         setEvents: function (events) {
@@ -25,6 +33,7 @@
             events || this.setEvents(events);
             var key, keys, selector, event, method;
             for (key in this.events) {
+
                 keys = key.split(/\s+/);
                 event = keys[0];
                 selector = keys[1];
@@ -36,7 +45,7 @@
                 if (event === 'init') {
                     method.call(this, selector);
                 } else {
-                    this.$el.off(event, selector, method).on(event, selector, method);
+                    this.$this.off(event, selector, method).on(event, selector, method);
                 }
             }
             return this;
@@ -52,7 +61,7 @@
                 } else {
                     method = this[this.events[key]];
                 }
-                this.$el.off(event, selector, method).on(event, selector, method);
+                this.$this.off(event, selector, method).on(event, selector, method);
             }
             return this;
         },
@@ -62,8 +71,7 @@
         addItem: function (widget) {
             var index = lite.rightIndex[widget.id];
             if (index && this._checkRight(widget.id, index)) {
-                this.$el.append(widget.$el);
-                widget.parent = this;
+                widget.show(this);
             }
             return this;
         }

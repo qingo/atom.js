@@ -13,12 +13,12 @@
             return this;
         },
         _render: function () {
-            this.$el = $('<div class="form"></div>');
+            this.$this = $('<div class="form"></div>');
             return this;
         },
         addItem: function (type, widget) {
             var wid = new lite[type](widget);
-            this.$el.append(wid.$el);
+            this.$this.append(wid.$this);
             return this;
         },
         submit: function () {
