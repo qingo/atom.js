@@ -1,7 +1,7 @@
 (function (window, $) {
     var _cid = 0;
     window.lite = {
-        version: '0.1.4',
+        version: '0.1.5',
         isObject: isType("Object"),
         isString: isType("String"),
         isArray: Array.isArray || isType("Array"),
