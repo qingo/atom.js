@@ -8,6 +8,9 @@
             this.data = options.data;
             return this;
         },
+        refresh: function(){
+
+        },
         _render: function () {
             var html = '', keys = this.keys, data = this.data, i, j;
             for (i = 0; i < data.length; i++) {

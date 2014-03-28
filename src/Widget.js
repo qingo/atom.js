@@ -6,7 +6,6 @@
             options = options || {};
             this.id = options.id || lite.cid(this.type);
             this.parent = options.parent || null;
-            console.log(this);
             this._prepare(options)._render().show().delegateEvents(options.events);
             this.$this[0].lite = this;
             return this;
@@ -17,7 +16,7 @@
         _render: function () {
             return this;
         },
-        show: function (parent) {
+        append: function (parent) {
             this.parent = parent || this.parent;
             if(this.parent){
                 this.$parent = this.parent.$this || $(this.parent);
@@ -71,7 +70,7 @@
         addItem: function (widget) {
             var index = lite.rightIndex[widget.id];
             if (index && this._checkRight(widget.id, index)) {
-                widget.show(this);
+                widget.append(this);
             }
             return this;
         }

@@ -41,6 +41,9 @@
             this.$this.html(html);
             return this;
         },
+        refresh: function(){
+
+        },
         go: function () {
             var that = $(arguments[0].delegateTarget)[0].lite;
             var index = $(this).attr('data-index'),
