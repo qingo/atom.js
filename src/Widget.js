@@ -3,14 +3,12 @@
     lite.Widget = lite.Class.create({
         constructor: lite.Widget,
         initialize: function (options) {
-            options = options || {};
+            this.url = options.url || '';
             this.id = options.id || lite.cid(this.type);
             this.parent = options.parent || null;
-            this._prepare(options)._render()._append().delegateEvents(options.events);
-            this.$this[0].lite = this;
-            return this;
-        },
-        _prepare: function (o) {
+            this.className = options.className || this.type;
+            this.filter = new lite.Filter();
+            this.setEvents(options.events).load();
             return this;
         },
         _render: function () {
@@ -18,11 +16,31 @@
         },
         _append: function (parent) {
             this.parent = parent || this.parent;
-            if(this.parent){
+            if (this.parent) {
                 this.$parent = this.parent.$this || $(this.parent);
                 this.$parent.append(this.$this);
             }
             return this;
+        },
+        load: function (filter) {
+            var that = this, url;
+            lite.mix(this.filter, filter);
+            this.filter || (url = this.url + this.filter.toUrl);
+            if (this.url) {
+                lite.getJSON(url, function (data) {
+                    that.data = data;
+                    that._render()._append().delegateEvents();
+                })
+            } else {
+                that._render()._append().delegateEvents();
+            }
+            return this;
+        },
+        trigger: function () {
+            var k, obs = this.observers;
+            for (k in obs) {
+                obs[k].load(this.filter);
+            }
         },
         setEvents: function (events) {
             lite.mix(this.events, events);
@@ -44,7 +62,7 @@
                 if (event === 'init') {
                     method.call(this, selector);
                 } else {
-                    this.$this.off(event, selector, method).on(event, selector, method);
+                    this.$this.on(event, selector, method);
                 }
             }
             return this;
@@ -73,6 +91,17 @@
                 widget._append(this);
             }
             return this;
+        },
+        addObserver: function (observer) {
+            this.observers[observer.id] = observer;
+        },
+        getObserver: function (observerId) {
+            lite.isString(observerId) || (observerId = observerId.id);
+            return this.observers[observerId];
+        },
+        removeObserver: function (observer) {
+            lite.isString(observerId) || (observerId = observerId.id);
+            delete this.observers[observerId];
         }
     });
 })(window, $);

@@ -1,18 +1,17 @@
 (function (window, $) {
-    var lite = window.lite;
+    var lite = window.lite, that;
 
     lite.Table = lite.Widget.extend({
-        Implements: lite.observer,
-        _prepare: function (options) {
+        initialize: function (options) {
+            options = options || {};
+            that = this;
             this.type = 'table';
             this.$this = $('<div class="table fl"></div>');
-            this.events = {
-                'click .row': 'detail'
-            };
             this.header = options.header;
             this.keys = options.keys;
             this.data = options.data;
-            this.observers = {};
+            this.hasPagination = options.hasPagination || 'false';
+            lite.Table.superclass.initialize.call(this, options);
             return this;
         },
         _render: function () {
@@ -25,7 +24,7 @@
                 keys: this.keys,
                 data: this.data
             });
-            this.pagination = new lite.Pagination({
+            if (this.hasPagination) this.pagination = new lite.Pagination({
                 parent: this,
                 url: '',
                 dataSize: 230,
@@ -38,20 +37,6 @@
             this.tbody.refresh(data);
             this.pagination.refresh(url);
             return this;
-        },
-        detail: function () {
-            var that = this;
-            $.ajax({
-                url: this.url + that.filter.toUrl(),
-                cache: false,
-                success: function (data) {
-                    var obs = that.observers,
-                        k;
-                    for (k in obs) {
-                        obs[k].refresh(that.url + that.filter.toUrl(), data);
-                    }
-                }
-            });
         }
     });
 

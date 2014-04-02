@@ -1,11 +1,12 @@
 (function (window, $) {
     var _cid = 0;
     window.lite = {
-        version: '0.1.5',
+        version: '0.1.6',
         isObject: isType("Object"),
         isString: isType("String"),
         isArray: Array.isArray || isType("Array"),
         isFunction: isType("Function"),
+        each: $.each,
         mix: function (result, source, wl) {
             // Copy "all" properties including inherited ones.
             for (var p in source) {
@@ -22,21 +23,13 @@
         cid: function (t) {
             return t + _cid++
         },
-        observer: {
-            setParameter: function () {
-
-            },
-            addObserver: function (observer) {
-                this.observers[observer.id] = observer;
-            },
-            getObserver: function (observerId) {
-                lite.isString(observerId) || (observerId = observerId.id);
-                return this.observers[observerId];
-            },
-            removeObserver: function (observer) {
-                lite.isString(observerId) || (observerId = observerId.id);
-                delete this.observers[observerId];
-            }
+        getJSON: function(url,callback,async){
+            $.ajax({
+                url: url,
+                cache: false,
+                async: async || false,
+                success: callback
+            })
         }
     };
     function isType(type) {

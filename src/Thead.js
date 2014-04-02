@@ -1,16 +1,17 @@
 (function (window, $) {
     var lite = window.lite;
     lite.Thead = lite.Widget.extend({
-        _prepare: function (options) {
+        initialize: function (options) {
+            options = options || {};
             this.type = 'thead';
             this.$this = $('<ul class="table-header clr"></ul>');
             this.content = options.header;
+            lite.Thead.superclass.initialize.call(this,options);
             return this;
         },
         _render: function () {
             var c = 0;
             this.$this.html(create(this.content));
-
             return this;
 
             function create(content) {

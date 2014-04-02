@@ -25,18 +25,26 @@
          * @param {String} options.url
          * @returns {window.lite.Page}
          */
-        _prepare: function (options) {
+        initialize: function (options) {
+            this.type = 'page';
             lite.userRight = options.userRight || 0;
             this.$this = $(document.body);
             this.url = options.url || '';
-            this.url && $.ajax({
-                url: this.url,
-                cache: false,
-                async: false,
-                success: function (data) {
-                    lite.userRight = data;
-                }
-            });
+            this.isLoad = options.url;
+            lite.Page.superclass.initialize.call(this, options);
+            return this;
+        },
+        load: function () {
+            var that = this,
+                isLoad = this.isLoad || false;
+            if (isLoad) {
+                lite.getJSON(this.url, function (data) {
+                    that.data = data;
+                    that._render()._append().delegateEvents();
+                }, false)
+            } else {
+                that._render()._append().delegateEvents();
+            }
             return this;
         }
     });

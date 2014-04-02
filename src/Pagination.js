@@ -1,15 +1,17 @@
 (function (window, $) {
-    var lite = window.lite;
+    var lite = window.lite, that;
     lite.Pagination = lite.Widget.extend({
         Implements: lite.observer,
-        _prepare: function (options) {
+        initialize: function (options) {
+            that = this;
+            this.type = 'pagination';
             this.$this = $('<ul class="table-pagination clr"></ul>');
             this.events = {
-                'click .usable': 'go'
+                'click .usable': 'submit'
             };
-            this.url = options.url || '';
-            this.setProperties(options.dataSize, options.cur, options.dataSizeInPage, options.SizeInPage);
             this.observers = {};
+            this.setProperties(options.dataSize, options.cur, options.dataSizeInPage, options.SizeInPage);
+            lite.Pagination.superclass.initialize.call(this,options);
             return this;
         },
         setProperties: function (dataSize, cur, dataSizeInPage, SizeInPage) {
@@ -41,22 +43,30 @@
             this.$this.html(html);
             return this;
         },
-        refresh: function(){
-
+        refresh: function (url) {
+            url || (this.url = url);
+            this.setProperties(this.dataSize, 0, this.dataSizeInPage, this.SizeInPage)._render();
+            return this;
         },
-        go: function () {
-            var that = $(arguments[0].delegateTarget)[0].lite;
+        submit: function () {
             var index = $(this).attr('data-index'),
                 isVector = /\+|\-/.test(index),
                 vector = +index;
-            if (isVector){
-                if(vector === 1 || vector === -1){
+            if (isVector) {
+                if (vector === 1 || vector === -1) {
                     index = vector + that.cur;
-                }else{
+                } else {
                     index = vector + that.startPage;
                 }
             }
             that.setProperties(that.dataSize, index, that.dataSizeInPage, that.sizeInPage)._render();
+            lite.getJSON(this.url, function (data) {
+                var obs = that.observers,
+                    k;
+                for (k in obs) {
+                    obs[k].refresh(url, data);
+                }
+            })
         }
     })
 })(window, $);

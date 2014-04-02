@@ -6,7 +6,7 @@
         },
         _render: function(){
             this.label = $('<div class="label clr></div>" ')
-        },
+        }
 
     })
 })(window, $);

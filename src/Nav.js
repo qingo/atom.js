@@ -2,10 +2,14 @@
     var lite = window.lite;
     lite.Nav = lite.Widget.extend({
         _prepare: function (options) {
-            this.$this = $('<div class="nav"></div>');
+            this.type = 'nav';
+            this.$this = $('<ul class="nav clr"></ul>');
+
+            return this;
         },
         _render: function () {
 
+            return this;
         }
     })
 })(window, $);

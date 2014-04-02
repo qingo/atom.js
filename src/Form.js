@@ -1,40 +1,26 @@
 (function (window, $) {
-    var lite = window.lite;
+    var lite = window.lite, that;
     lite.Form = lite.Widget.extend({
-        Implements: lite.observer,
-        _prepare: function (options) {
+        initialize: function (options) {
+            that = this;
+            this.type = 'form';
+            this.$this = $('<div class="form"></div>');
             this.events = {
-                'init .submit': 'submit',
-                'click .submit': 'submit'
+                'init .submit': 'trigger',
+                'click .submit': 'trigger'
             };
-            this.url = options.url || '';
             this.observers = {};
             this.filter = new lite.Filter();
+            lite.Form.superclass.initialize.call(this, options);
             return this;
         },
         _render: function () {
-            this.$this = $('<div class="form"></div>');
             return this;
         },
-        addItem: function (type, widget) {
-            var wid = new lite[type](widget);
-            this.$this.append(wid.$this);
+        addItem: function (widget) {
+            this.superclass.addItem(widget);
+            this.filter.add(widget);
             return this;
-        },
-        submit: function () {
-            var that = this;
-            $.ajax({
-                url: this.url + that.filter.toUrl(),
-                cache: false,
-                success: function (data) {
-                    var obs = that.observers,
-                        k;
-                    for (k in obs) {
-                        obs[k].refresh(that.url + that.filter.toUrl(), data);
-                    }
-                }
-            });
-
         }
     })
 })(window, $);
