@@ -27,24 +27,7 @@
          */
         initialize: function (options) {
             this.type = 'page';
-            lite.userRight = options.userRight || 0;
-            this.$this = $(document.body);
-            this.url = options.url || '';
-            this.isLoad = options.url;
             lite.Page.superclass.initialize.call(this, options);
-            return this;
-        },
-        load: function () {
-            var that = this,
-                isLoad = this.isLoad || false;
-            if (isLoad) {
-                lite.getJSON(this.url, function (data) {
-                    that.data = data;
-                    that._render()._append().delegateEvents();
-                }, false)
-            } else {
-                that._render()._append().delegateEvents();
-            }
             return this;
         }
     });

@@ -7,8 +7,13 @@
             this.id = options.id || lite.cid(this.type);
             this.parent = options.parent || null;
             this.className = options.className || this.type;
+            this.tagName = this.tagName || 'div';
+            this.$this || (this.$this = $('<' + this.tagName + ' class="' + this.type + ' clr"></' + this.tagName + '>'));
             this.filter = new lite.Filter();
+            this.data = options.data || null;
+            this.observers = {};
             this.setEvents(options.events).load();
+            this.$this.length && (this.$this[0].lite = this);
             return this;
         },
         _render: function () {
@@ -102,6 +107,14 @@
         removeObserver: function (observer) {
             lite.isString(observerId) || (observerId = observerId.id);
             delete this.observers[observerId];
+        },
+        show: function () {
+            this.$this.show();
+            return this;
+        },
+        hide: function () {
+            this.$this.hide();
+            return this;
         }
     });
 })(window, $);

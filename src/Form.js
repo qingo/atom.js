@@ -4,17 +4,11 @@
         initialize: function (options) {
             that = this;
             this.type = 'form';
-            this.$this = $('<div class="form"></div>');
             this.events = {
                 'init .submit': 'trigger',
                 'click .submit': 'trigger'
             };
-            this.observers = {};
-            this.filter = new lite.Filter();
             lite.Form.superclass.initialize.call(this, options);
-            return this;
-        },
-        _render: function () {
             return this;
         },
         addItem: function (widget) {
