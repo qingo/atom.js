@@ -23,7 +23,7 @@
                 html += '<li class="nav-item nav-item-' + i + ' ' + currentClass[+this.current === i] + '">'
                     + '<a href="' + item.href + '">'
                     + '<i>' + item.icon + '</i>'
-                    + '<h2>' + item.title + '</h2>'
+                    + '<h2>' + item.label + '</h2>'
                     + '</a>'
                     + '</li>';
             }

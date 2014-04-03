@@ -1,7 +1,7 @@
 (function (window, $) {
     var _cid = 0;
     window.lite = {
-        version: '0.1.7',
+        version: '0.1.8',
         isObject: isType("Object"),
         isString: isType("String"),
         isArray: Array.isArray || isType("Array"),
@@ -30,6 +30,10 @@
                 async: async || false,
                 success: callback
             })
+        },
+        instance : {},
+        getWidget: function(id){
+            return lite.instance[id];
         }
     };
     function isType(type) {

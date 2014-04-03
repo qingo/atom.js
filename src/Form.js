@@ -10,11 +10,6 @@
             };
             lite.Form.superclass.initialize.call(this, options);
             return this;
-        },
-        addItem: function (widget) {
-            this.superclass.addItem(widget);
-            this.filter.add(widget);
-            return this;
         }
     })
 })(window, $);

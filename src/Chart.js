@@ -10,11 +10,6 @@
         },
         refresh: function (url, data) {
 
-        },
-        addItem: function (type, widget) {
-            var wid = new window[type](widget);
-            this.$this.append(wid.$this);
-            return this;
         }
     })
 })(window, $);

@@ -8,22 +8,28 @@
             this.parent = options.parent || null;
             this.className = options.className || this.type;
             this.tagName = this.tagName || 'div';
-            this.$this || (this.$this = $('<' + this.tagName + ' class="' + this.type + ' clr"></' + this.tagName + '>'));
+            this.label = options.label || '';
+            this.$this || (this.$this = $('<' + this.tagName + ' class="' + this.className + ' clr"></' + this.tagName + '>'));
             this.filter = new lite.Filter();
             this.data = options.data || null;
-            this.observers = {};
+            this.observers = [];
             this.setEvents(options.events).load();
+            this.callback = options.callback || function(){return this};
             this.$this.length && (this.$this[0].lite = this);
+            lite.instance[this.id] = this;
             return this;
         },
         _render: function () {
             return this;
         },
         _append: function (parent) {
-            this.parent = parent || this.parent;
-            if (this.parent) {
-                this.$parent = this.parent.$this || $(this.parent);
-                this.$parent.append(this.$this);
+            var index = lite.rightIndex[this.id];
+            if(index || this._checkRight(index)){
+                this.parent = parent || this.parent;
+                if (this.parent) {
+                    this.$parent = this.parent.$this || $(this.parent);
+                    this.$parent.append(this.$this);
+                }
             }
             return this;
         },
@@ -34,7 +40,7 @@
             if (this.url) {
                 lite.getJSON(url, function (data) {
                     that.data = data;
-                    that._render()._append().delegateEvents();
+                    that._render()._append().delegateEvents().callback();
                 })
             } else {
                 that._render()._append().delegateEvents();
@@ -87,26 +93,27 @@
             }
             return this;
         },
-        _checkRight: function (id, index) {
+        _checkRight: function (index) {
+            if(typeof index === 'undefined') return true;
+
             return !!+lite.userRight.toString(2).charAt(index);
         },
         addItem: function (widget) {
-            var index = lite.rightIndex[widget.id];
-            if (index && this._checkRight(widget.id, index)) {
-                widget._append(this);
+            if(typeof widget === 'undefined') return null;
+            var index = lite.rightIndex[widget.id],
+                type = widget.type.toLowerCase().replace(/\w/, function ($1) {
+                    return $1.toUpperCase()
+                });
+            if (!(widget instanceof lite.Widget) && type) {
+                widget.parent = this;
+                new lite[type](widget);
+            }else{
+                if (index && this._checkRight(widget.id, index)) {
+                    widget._append(this);
+                }
             }
+
             return this;
-        },
-        addObserver: function (observer) {
-            this.observers[observer.id] = observer;
-        },
-        getObserver: function (observerId) {
-            lite.isString(observerId) || (observerId = observerId.id);
-            return this.observers[observerId];
-        },
-        removeObserver: function (observer) {
-            lite.isString(observerId) || (observerId = observerId.id);
-            delete this.observers[observerId];
         },
         show: function () {
             this.$this.show();
