@@ -10,10 +10,6 @@
             lite.Nav.superclass.initialize.call(this, options);
             return this;
         },
-        _setMemberProperties: function(){
-            return this;
-
-        },
         _render: function () {
             var html = '',
                 head = this.head,

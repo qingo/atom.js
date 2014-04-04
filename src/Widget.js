@@ -3,41 +3,46 @@
     lite.Widget = lite.Class.create({
         constructor: lite.Widget,
         initialize: function (options) {
-            this._setBasicProperties(options) //widget的基础属性
-                ._setDOMProperties(options) //widget的DOM属性
-                ._setMemberProperties(options) //widget的成员属性
-                ._setDataProperties(options) //widget的数据属性
-                ._setFilterProperties()  //widget的条件属性
-                .setEvents(options.events) //widget的事件属性
-                .load();
+            this._setProperties(options).load();
             lite.instance[this.id] = this;
-//            this.callback = options.callback || function () {
-//                return this
-//            };
             return this;
         },
-        _setBasicProperties: function (options) {
+        _setProperties: function (options) {
+            this._setBase(options)
+                ._setDOM(options)
+                ._setMember(options)
+                ._setData(options)
+                .setFilter()
+                .setEvents(options.events);
+            return this;
+        },
+        _setBase: function (options) {
             this.type = options.type || 'widget';
-            this.id = options.id || lite.cid(this.type);
+            if(!lite.getWidget(options.id)){
+                (this.id = options.id) || lite.cid(this.type);
+            }else{
+                throw new Error("已存在ID为 '"+options.id+"' 的组件！");
+            }
+
             return this
         },
-        _setDOMProperties: function (options) {
+        _setDOM: function (options) {
             this.selector = options.selector;
             this.parent = options.parent || null;
             this.className = options.className || this.type;
-            if(this.selector){
-                this.$this =$(this.selector);
+            if (this.selector) {
+                this.$this = $(this.selector);
             } else {
                 this.$this = options.$this || $('<div class="' + this.className + '"></div>');
             }
             this.$this.attr('data-widget', this.id);
             return this;
         },
-        _setMemberProperties: function (options) {
+        _setMember: function (options) {
             this.label = options.label || '';
             return this;
         },
-        _setDataProperties: function (options) {
+        _setData: function (options) {
             this.url = options.url || '';
             this.data = options.data || null;
             return this;
@@ -47,7 +52,7 @@
             lite.mix(this.events, events);
             return this;
         },
-        _setFilterProperties: function () {
+        setFilter: function () {
             this.filter = new lite.Filter();
             return this;
         },

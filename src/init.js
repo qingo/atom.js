@@ -21,9 +21,9 @@
             }
         },
         cid: function (t) {
-            return t+ '-' + _cid++
+            return t + '-' + _cid++
         },
-        getJSON: function(url,callback,async){
+        getJSON: function (url, callback, async) {
             $.ajax({
                 url: url,
                 cache: false,
@@ -31,9 +31,9 @@
                 success: callback
             })
         },
-        instance : {},
-        getWidget: function(id){
-            return lite.instance[id];
+        instance: {},
+        getWidget: function (id) {
+            return lite.instance[id] || null;
         }
     };
     function isType(type) {
