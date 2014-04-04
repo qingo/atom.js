@@ -1,7 +1,7 @@
 (function (window, $) {
     var _cid = 0;
     window.lite = {
-        version: '0.1.8',
+        version: '0.1.9',
         isObject: isType("Object"),
         isString: isType("String"),
         isArray: Array.isArray || isType("Array"),
@@ -21,7 +21,7 @@
             }
         },
         cid: function (t) {
-            return t + _cid++
+            return t+ '-' + _cid++
         },
         getJSON: function(url,callback,async){
             $.ajax({

@@ -1,7 +1,7 @@
 (function (window, $) {
     var lite = window.lite;
     lite.Select = lite.Widget.extend({
-        _prepare: function (options) {
+        initialize: function (options) {
             this.type = 'select';
             this.$this = $('<div class="select clr"></div>');
             this.events = {

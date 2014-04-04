@@ -3,20 +3,52 @@
     lite.Widget = lite.Class.create({
         constructor: lite.Widget,
         initialize: function (options) {
-            this.url = options.url || '';
+            this._setBasicProperties(options) //widget的基础属性
+                ._setDOMProperties(options) //widget的DOM属性
+                ._setMemberProperties(options) //widget的成员属性
+                ._setDataProperties(options) //widget的数据属性
+                ._setFilterProperties()  //widget的条件属性
+                .setEvents(options.events) //widget的事件属性
+                .load();
+            lite.instance[this.id] = this;
+//            this.callback = options.callback || function () {
+//                return this
+//            };
+            return this;
+        },
+        _setBasicProperties: function (options) {
+            this.type = options.type || 'widget';
             this.id = options.id || lite.cid(this.type);
+            return this
+        },
+        _setDOMProperties: function (options) {
+            this.selector = options.selector;
             this.parent = options.parent || null;
             this.className = options.className || this.type;
-            this.tagName = this.tagName || 'div';
+            if(this.selector){
+                this.$this =$(this.selector);
+            } else {
+                this.$this = options.$this || $('<div class="' + this.className + '"></div>');
+            }
+            this.$this.attr('data-widget', this.id);
+            return this;
+        },
+        _setMemberProperties: function (options) {
             this.label = options.label || '';
-            this.$this || (this.$this = $('<' + this.tagName + ' class="' + this.className + ' clr"></' + this.tagName + '>'));
-            this.filter = new lite.Filter();
+            return this;
+        },
+        _setDataProperties: function (options) {
+            this.url = options.url || '';
             this.data = options.data || null;
-            this.observers = [];
-            this.setEvents(options.events).load();
-            this.callback = options.callback || function(){return this};
-            this.$this.length && (this.$this[0].lite = this);
-            lite.instance[this.id] = this;
+            return this;
+        },
+        setEvents: function (events) {
+            this.events || (this.events = {});
+            lite.mix(this.events, events);
+            return this;
+        },
+        _setFilterProperties: function () {
+            this.filter = new lite.Filter();
             return this;
         },
         _render: function () {
@@ -24,7 +56,7 @@
         },
         _append: function (parent) {
             var index = lite.rightIndex[this.id];
-            if(index || this._checkRight(index)){
+            if (index || this._checkRight(index)) {
                 this.parent = parent || this.parent;
                 if (this.parent) {
                     this.$parent = this.parent.$this || $(this.parent);
@@ -40,7 +72,7 @@
             if (this.url) {
                 lite.getJSON(url, function (data) {
                     that.data = data;
-                    that._render()._append().delegateEvents().callback();
+                    that._render()._append().delegateEvents();
                 })
             } else {
                 that._render()._append().delegateEvents();
@@ -52,10 +84,6 @@
             for (k in obs) {
                 obs[k].load(this.filter);
             }
-        },
-        setEvents: function (events) {
-            lite.mix(this.events, events);
-            return this;
         },
         delegateEvents: function (events) {
             events || this.setEvents(events);
@@ -94,12 +122,12 @@
             return this;
         },
         _checkRight: function (index) {
-            if(typeof index === 'undefined') return true;
+            if (typeof index === 'undefined') return true;
 
             return !!+lite.userRight.toString(2).charAt(index);
         },
         addItem: function (widget) {
-            if(typeof widget === 'undefined') return null;
+            if (typeof widget === 'undefined') return null;
             var index = lite.rightIndex[widget.id],
                 type = widget.type.toLowerCase().replace(/\w/, function ($1) {
                     return $1.toUpperCase()
@@ -107,7 +135,7 @@
             if (!(widget instanceof lite.Widget) && type) {
                 widget.parent = this;
                 new lite[type](widget);
-            }else{
+            } else {
                 if (index && this._checkRight(widget.id, index)) {
                     widget._append(this);
                 }

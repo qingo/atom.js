@@ -26,8 +26,8 @@
          * @returns {window.lite.Page}
          */
         initialize: function (options) {
-            options = options || {};
-            this.type = 'page';
+            lite.isObject(options) || (options = {});
+            options.type = 'page';
             lite.Page.superclass.initialize.call(this, options);
             return this;
         }

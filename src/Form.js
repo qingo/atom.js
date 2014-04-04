@@ -1,10 +1,10 @@
 (function (window, $) {
-    var lite = window.lite, that;
+    var lite = window.lite;
     lite.Form = lite.Widget.extend({
         initialize: function (options) {
-            that = this;
-            this.type = 'form';
-            this.events = {
+            lite.isObject(options) || (options = {});
+            options.type = 'form';
+            options.events = {
                 'init .submit': 'trigger',
                 'click .submit': 'trigger'
             };

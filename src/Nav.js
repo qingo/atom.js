@@ -2,13 +2,17 @@
     var lite = window.lite;
     lite.Nav = lite.Widget.extend({
         initialize: function (options) {
-            options = options || {};
-            this.type = 'nav';
-            this.tagName = 'ul';
+            options || (options = {});
+            options.type = 'nav';
+            options.$this = $('<ul class="nav"></ul>');
             this.head = options.head || [];
             this.current = options.current || 0;
             lite.Nav.superclass.initialize.call(this, options);
             return this;
+        },
+        _setMemberProperties: function(){
+            return this;
+
         },
         _render: function () {
             var html = '',

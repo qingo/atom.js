@@ -1,6 +1,7 @@
 (function (window, $) {
     var lite = window.lite;
     lite.Map = lite.Widget.extend({
+
         initialize: function (options) {
             options = options || {};
             this.type = 'map';

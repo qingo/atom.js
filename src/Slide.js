@@ -1,8 +1,8 @@
 (function($,window){
     lite.Slide = lite.Widget.extend({
         initialize: function(options){
-            this.type = 'slide';
-
+            options || (options = {});
+            options.type = 'slide';
             lite.Slide.superclass.initialize.call(this,options);
             return this;
         },
