@@ -4,8 +4,8 @@
         initialize: function (options) {
             options || (options = {});
             options.type = 'tabs';
-            this.$this = $('<div class="tabs fl clr"></div>');
-            this.events = {
+            options.$this = $('<div class="tabs fl clr"></div>');
+            options.events = {
                 'click .tabs-item': 'toggle'
             };
             lite.Tabs.superclass.initialize.call(this, options);
@@ -42,7 +42,6 @@
                 if (this.current === i) {
                     this.content[i].show()
                 } else {
-                    console.dir(this.content);
                     this.content[i].hide();
                 }
             }
@@ -60,8 +59,8 @@
             return this;
         },
         toggle: function () {
-            var id = $(arguments[0].delegateTarget).attr('data-widget');
-            var that = lite.getWidget(id),
+            var id = $(arguments[0].delegateTarget).attr('data-widget'),
+                that = lite.getWidget(id),
                 content = that.content, i;
             for (i = 0; i < content.length; i++) {
                 if (i === $(this).index()) {

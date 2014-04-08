@@ -31,7 +31,7 @@
             this.className = options.className || this.type;
             this.html = options.html || '';
             this.template = options.template || '';
-            $(this.template).length || (this.template = $(this.template).length.html());
+            $(this.template).length && (this.template = $(this.template).html());
             if (this.selector) {
                 this.$this = $(this.selector);
             } else {
