@@ -1,5 +1,0 @@
-/**
- * @file
- * @author Qingo
- * @desc
- */
