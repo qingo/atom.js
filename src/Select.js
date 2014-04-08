@@ -12,7 +12,7 @@
             this.data = options.data;
             return this;
         },
-        _render: function () {
+        build: function () {
             var i = 0,
                 data = this.data,
                 html = '';

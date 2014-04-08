@@ -18,7 +18,7 @@
             this.content = options.content || [];
             return this;
         },
-        _render: function () {
+        build: function () {
             var html = '',
                 head = this.head,
                 content = this.content,
@@ -52,7 +52,7 @@
         },
         setCurrent: function (index) {
             this.current = index;
-            this._render();
+            this.build();
             return this
         },
         addContent: function (widget) {

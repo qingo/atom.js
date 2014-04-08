@@ -6,7 +6,7 @@
             lite.Slide.superclass.initialize.call(this,options);
             return this;
         },
-        _render: function(){
+        build: function(){
 
             return this;
         }

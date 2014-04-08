@@ -16,7 +16,7 @@
             lite.Tbody.superclass.initialize.call(this,options);
             return this;
         },
-        _render: function () {
+        build: function () {
             var html = '',
                 keys = this.keys,
                 data = this.data, i, j;
@@ -32,7 +32,7 @@
         },
         refresh: function (data) {
             this.data = data;
-            this._render();
+            this.build();
             return this;
         },
         submit: function () {

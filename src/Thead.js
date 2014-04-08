@@ -9,7 +9,7 @@
             lite.Thead.superclass.initialize.call(this,options);
             return this;
         },
-        _render: function () {
+        build: function () {
             var c = 0;
             this.$this.html(create(this.content));
             return this;

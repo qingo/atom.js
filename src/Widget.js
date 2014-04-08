@@ -18,18 +18,20 @@
         },
         _setBase: function (options) {
             this.type = options.type || 'widget';
-            if(!lite.getWidget(options.id)){
+            if (!lite.getWidget(options.id)) {
                 (this.id = options.id) || lite.cid(this.type);
-            }else{
-                throw new Error("已存在ID为 '"+options.id+"' 的组件！");
+            } else {
+                throw new Error("ID为 '" + options.id + "' 的组件已存在！");
             }
-
             return this
         },
         _setDOM: function (options) {
             this.selector = options.selector;
             this.parent = options.parent || null;
             this.className = options.className || this.type;
+            this.html = options.html || '';
+            this.template = options.template || '';
+            $(this.template).length || (this.template = $(this.template).length.html());
             if (this.selector) {
                 this.$this = $(this.selector);
             } else {
@@ -57,7 +59,23 @@
             return this;
         },
         _render: function () {
+            /**
+             * widget内html的构造方式一共有三种
+             * 第一种：如果html属性存在，直接加载html到$this上
+             * 第二种：如果template属性存在，渲染template模板然后加载到$this上
+             * 第三种：通过组建自定义的build函数创建组建
+             */
+            if (this.html) {
+                this.$this.html(this.html);
+            } else if (this.template) {
+
+            } else {
+                this.build();
+            }
             return this;
+        },
+        build: function () {
+
         },
         _append: function (parent) {
             var index = lite.rightIndex[this.id];
@@ -157,4 +175,5 @@
             return this;
         }
     });
+
 })(window, $);

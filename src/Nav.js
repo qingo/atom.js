@@ -10,7 +10,7 @@
             lite.Nav.superclass.initialize.call(this, options);
             return this;
         },
-        _render: function () {
+        build: function () {
             var html = '',
                 head = this.head,
                 currentClass = {
@@ -32,7 +32,7 @@
         },
         setCurrent: function (index) {
             this.current = index;
-            this._render();
+            this.build();
             return this
         }
     })

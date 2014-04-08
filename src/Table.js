@@ -14,7 +14,7 @@
             lite.Table.superclass.initialize.call(this, options);
             return this;
         },
-        _render: function () {
+        build: function () {
             this.thead = new lite.Thead({
                 parent: this,
                 header: this.header

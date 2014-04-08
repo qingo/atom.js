@@ -27,7 +27,7 @@
             this.isNext = !(this.size - this.startPage - this.sizeInPage > 0);
             return this;
         },
-        _render: function () {
+        build: function () {
             var click = {'true': 'disabled', 'false': 'usable'},
                 isCurrent = {'true': 'current', 'false': 'usable'};
             var html =
@@ -45,7 +45,7 @@
         },
         refresh: function (url) {
             url || (this.url = url);
-            this.setProperties(this.dataSize, 0, this.dataSizeInPage, this.SizeInPage)._render();
+            this.setProperties(this.dataSize, 0, this.dataSizeInPage, this.SizeInPage).build();
             return this;
         },
         submit: function () {
@@ -59,7 +59,7 @@
                     index = vector + that.startPage;
                 }
             }
-            that.setProperties(that.dataSize, index, that.dataSizeInPage, that.sizeInPage)._render();
+            that.setProperties(that.dataSize, index, that.dataSizeInPage, that.sizeInPage).build();
             lite.getJSON(this.url, function (data) {
                 var obs = that.observers,
                     k;

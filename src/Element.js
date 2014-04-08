@@ -7,7 +7,7 @@
             lite.Element.superclass.initialize.call(this, options);
             return this;
         },
-        _render: function(){
+        build: function(){
             this.label = $('<div class="label clr></div>" ')
         }
 
