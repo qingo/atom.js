@@ -6,9 +6,6 @@
             options.type = 'element';
             lite.Element.superclass.initialize.call(this, options);
             return this;
-        },
-        build: function(){
-            this.label = $('<div class="label clr></div>" ')
         }
 
     })

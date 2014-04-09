@@ -7,13 +7,8 @@
             lite.Form.superclass.initialize.call(this, options);
             return this;
         },
-        _setMember:function(options){
+        _setMember: function (options) {
             this.member = options.member || [];
-            this.observers = options.observers || [];
-
-            return this;
-        },
-        build: function(){
             return this;
         }
     })

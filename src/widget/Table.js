@@ -1,18 +1,18 @@
 (function (window, $) {
-    var lite = window.lite, that;
+    var lite = window.lite;
 
     lite.Table = lite.Widget.extend({
         initialize: function (options) {
-            options = options || {};
-            that = this;
-            this.type = 'table';
-            this.$this = $('<div class="table fl"></div>');
-            this.header = options.header;
-            this.keys = options.keys;
-            this.data = options.data;
+            lite.isObject(options) || (options = {});
+            options.type = 'table';
+            options.$this = $('<div class="table fl"></div>');
             this.hasPagination = options.hasPagination || 'false';
             lite.Table.superclass.initialize.call(this, options);
             return this;
+        },
+        _setMember: function(options){
+            this.header = options.header;
+            this.keys = options.keys;
         },
         build: function () {
             this.thead = new lite.Thead({

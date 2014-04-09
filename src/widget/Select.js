@@ -26,6 +26,9 @@
             this.$this.append(this.$label).append(this.$title).append(this.$option);
             return this;
         },
+        _setMember: function(){
+            return this;
+        },
         _showOption: function () {
 
 

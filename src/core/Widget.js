@@ -18,12 +18,13 @@
         },
         _setBase: function (options) {
             this.type = options.type || 'widget';
+            this.mode = options.mode || 'load';
             if (!lite.getWidget(options.id)) {
                 (this.id = options.id) || lite.cid(this.type);
             } else {
                 throw new Error("ID为 '" + options.id + "' 的组件已存在！");
             }
-            return this
+            return this;
         },
         _setDOM: function (options) {
             this.selector = options.selector;
@@ -92,7 +93,7 @@
             var that = this, url;
             lite.mix(this.filter, filter);
             this.filter || (url = this.url + this.filter.toUrl);
-            if (this.url) {
+            if (this.mode = 'load' && this.url) {
                 lite.getJSON(url, function (data) {
                     that.data = data;
                     that._render()._append().delegateEvents();
@@ -101,12 +102,6 @@
                 that._render()._append().delegateEvents();
             }
             return this;
-        },
-        trigger: function () {
-            var k, obs = this.observers;
-            for (k in obs) {
-                obs[k].load(this.filter);
-            }
         },
         delegateEvents: function (events) {
             events || this.setEvents(events);
