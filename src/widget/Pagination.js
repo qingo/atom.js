@@ -2,7 +2,7 @@
     var lite = window.lite, that;
     lite.Pagination = lite.Widget.extend({
         Implements: lite.observer,
-        initialize: function (options) {
+        initialize: function (config) {
             that = this;
             this.type = 'pagination';
             this.$this = $('<ul class="table-pagination clr"></ul>');
@@ -10,8 +10,8 @@
                 'click .usable': 'submit'
             };
             this.observers = {};
-            this.setProperties(options.dataSize, options.cur, options.dataSizeInPage, options.SizeInPage);
-            lite.Pagination.superclass.initialize.call(this,options);
+            this.setProperties(config.dataSize, config.cur, config.dataSizeInPage, config.SizeInPage);
+            lite.Pagination.superclass.initialize.call(this,config);
             return this;
         },
         setProperties: function (dataSize, cur, dataSizeInPage, SizeInPage) {

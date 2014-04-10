@@ -1,13 +1,13 @@
 (function (window, $) {
     var lite = window.lite;
     lite.Nav = lite.Widget.extend({
-        initialize: function (options) {
-            options || (options = {});
-            options.type = 'nav';
-            options.$this = $('<ul class="nav"></ul>');
-            this.head = options.head || [];
-            this.current = options.current || 0;
-            lite.Nav.superclass.initialize.call(this, options);
+        initialize: function (config) {
+            config || (config = {});
+            config.type = 'nav';
+            config.$this = $('<ul class="nav"></ul>');
+            this.head = config.head || [];
+            this.current = config.current || 0;
+            lite.Nav.superclass.initialize.call(this, config);
             return this;
         },
         build: function () {

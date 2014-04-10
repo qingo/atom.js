@@ -1,9 +1,9 @@
 (function($,window){
     lite.Slide = lite.Widget.extend({
-        initialize: function(options){
-            options || (options = {});
-            options.type = 'slide';
-            lite.Slide.superclass.initialize.call(this,options);
+        initialize: function(config){
+            config || (config = {});
+            config.type = 'slide';
+            lite.Slide.superclass.initialize.call(this,config);
             return this;
         },
         build: function(){

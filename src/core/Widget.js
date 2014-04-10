@@ -2,52 +2,57 @@
     var lite = window.lite;
     lite.Widget = lite.Class.create({
         constructor: lite.Widget,
-        initialize: function (options) {
-            this._setProperties(options).load();
+        initialize: function (config) {
+            this.config = config;
+            this.setProperties().load();
             lite.instance[this.id] = this;
             return this;
         },
-        _setProperties: function (options) {
-            this._setBase(options)
-                ._setDOM(options)
-                ._setMember(options)
-                ._setData(options)
+        setProperties: function () {
+            this.setBase()
+                .setDOM()
+                .setMember()
+                .setData()
                 .setFilter()
-                .setEvents(options.events);
+                .setEvents(this.config.events);
             return this;
         },
-        _setBase: function (options) {
-            this.type = options.type || 'widget';
-            this.mode = options.mode || 'load';
-            if (!lite.getWidget(options.id)) {
-                (this.id = options.id) || lite.cid(this.type);
+        setBase: function () {
+            var config = this.config;
+            this.type = config.type || 'widget';
+            this.mode = config.mode || 'load';
+            if (!lite.getWidget(config.id)) {
+                (this.id = config.id) || lite.cid(this.type);
             } else {
-                throw new Error("ID为 '" + options.id + "' 的组件已存在！");
+                throw new Error("ID为 '" + config.id + "' 的组件已存在！");
             }
             return this;
         },
-        _setDOM: function (options) {
-            this.selector = options.selector;
-            this.parent = options.parent || null;
-            this.className = options.className || this.type;
-            this.html = options.html || '';
-            this.template = options.template || '';
+        setDOM: function () {
+            var config = this.config;
+            this.selector = config.selector;
+            this.parent = config.parent || null;
+            this.className = config.className || this.type;
+            this.html = config.html || '';
+            this.template = config.template || '';
             $(this.template).length && (this.template = $(this.template).html());
             if (this.selector) {
                 this.$this = $(this.selector);
             } else {
-                this.$this = options.$this || $('<div class="' + this.className + '"></div>');
+                this.$this = config.$this || $('<div class="' + this.className + '"></div>');
             }
             this.$this.attr('data-widget', this.id);
             return this;
         },
-        _setMember: function (options) {
-            this.label = options.label || '';
+        setMember: function () {
+            var config = this.config;
+            this.label = config.label || '';
             return this;
         },
-        _setData: function (options) {
-            this.url = options.url || '';
-            this.data = options.data || null;
+        setData: function () {
+            var config =  this.config;
+            this.url = config.url || '';
+            this.data = config.data || null;
             return this;
         },
         setEvents: function (events) {

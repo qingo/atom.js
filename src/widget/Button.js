@@ -1,17 +1,17 @@
 (function (window, $) {
     var lite = window.lite;
     lite.Button = lite.Widget.extend({
-        initialize: function (options) {
-            lite.isObject(options) || (options = {});
-            options.type = 'button';
-            options.mode || (options.mode = 'trigger');
+        initialize: function (config) {
+            lite.isObject(config) || (config = {});
+            config.type = 'button';
+            config.mode || (config.mode = 'trigger');
             this.events = {
                 'click .add': 'add',
                 'click .delete': 'del',
                 'click .submit': 'submit',
                 'click .save': 'save'
             };
-            lite.Button.superclass.initialize.call(this, options);
+            lite.Button.superclass.initialize.call(this, config);
             return this;
         },
         build: function () {

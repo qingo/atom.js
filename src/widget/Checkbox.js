@@ -1,15 +1,15 @@
 (function (window, $) {
     var lite = window.lite;
     lite.Checkbox = lite.Widget.extend({
-        initialize: function (options) {
-            lite.isObject(options) || (options = {});
-            options.type = 'checkbox';
-            lite.Checkbox.superclass.initialize.call(this, options);
+        initialize: function (config) {
+            lite.isObject(config) || (config = {});
+            config.type = 'checkbox';
+            lite.Checkbox.superclass.initialize.call(this, config);
             return this;
         },
-        _setMember: function (options) {
-            this.hasAll = options.hasAll || true;
-            this.member = options.member || [];
+        setMember: function (config) {
+            this.hasAll = config.hasAll || true;
+            this.member = config.member || [];
             return this;
         },
         build: function () {

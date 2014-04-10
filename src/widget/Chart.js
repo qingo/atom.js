@@ -1,10 +1,10 @@
 (function (window, $) {
     var lite = window.lite;
     lite.Chart = lite.Widget.extend({
-        initialize: function (options) {
-            lite.isObject(options) || (options = {});
-            options.type = 'chart';
-            lite.Chart.superclass.initialize.call(this, options);
+        initialize: function (config) {
+            lite.isObject(config) || (config = {});
+            config.type = 'chart';
+            lite.Chart.superclass.initialize.call(this, config);
             return this;
         },
         show: function (url, data) {

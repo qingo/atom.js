@@ -20,15 +20,15 @@
         /**
          * @method lite.Page#_prepare
          * @desc Page的圆形方法_prepare主要是用来设置权限的，其中lite对象上的userRight用来存放整个页面和权限相关的参数
-         * @param {object} options
-         * @param {String} options.userRight
-         * @param {String} options.url
+         * @param {object} config
+         * @param {String} config.userRight
+         * @param {String} config.url
          * @returns {window.lite.Page}
          */
-        initialize: function (options) {
-            lite.isObject(options) || (options = {});
-            options.type = 'page';
-            lite.Page.superclass.initialize.call(this, options);
+        initialize: function (config) {
+            lite.isObject(config) || (config = {});
+            config.type = 'page';
+            lite.Page.superclass.initialize.call(this, config);
             return this;
         }
     });

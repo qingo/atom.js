@@ -1,21 +1,22 @@
 (function (window, $) {
     var lite = window.lite;
     lite.Tabs = lite.Widget.extend({
-        initialize: function (options) {
-            options || (options = {});
-            options.type = 'tabs';
-            options.$this = $('<div class="tabs fl clr"></div>');
-            options.events = {
+        initialize: function (config) {
+            config || (config = {});
+            config.type = 'tabs';
+            config.$this = $('<div class="tabs fl clr"></div>');
+            config.events = {
                 'click .tabs-item': 'toggle'
             };
-            lite.Tabs.superclass.initialize.call(this, options);
+            lite.Tabs.superclass.initialize.call(this, config);
             return this;
         },
-        _setMember: function (options) {
-            this.head = options.head || [];
-            this.label = options.label;
-            this.current = options.current || 0;
-            this.content = options.content || [];
+        setMember: function (config) {
+            config = config || this.config;
+            this.head = config.head || [];
+            this.label = config.label;
+            this.current = config.current || 0;
+            this.content = config.content || [];
             return this;
         },
         build: function () {

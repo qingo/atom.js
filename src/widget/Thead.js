@@ -1,12 +1,12 @@
 (function (window, $) {
     var lite = window.lite;
     lite.Thead = lite.Widget.extend({
-        initialize: function (options) {
-            options = options || {};
+        initialize: function (config) {
+            config = config || {};
             this.type = 'thead';
             this.$this = $('<ul class="table-header clr"></ul>');
-            this.content = options.header;
-            lite.Thead.superclass.initialize.call(this,options);
+            this.content = config.header;
+            lite.Thead.superclass.initialize.call(this,config);
             return this;
         },
         build: function () {

@@ -2,18 +2,18 @@
     var lite = window.lite, that;
     lite.Tbody = lite.Widget.extend({
         Implements: lite.observer,
-        initialize: function (options) {
+        initialize: function (config) {
             this.type = 'tbody';
             this.$this = $('<div class="table-body clr"></div>');
             this.events = {
                 'click .row': 'submit'
             };
-            this.url = options.url || '';
-            this.keys = options.keys;
-            this.data = options.data;
+            this.url = config.url || '';
+            this.keys = config.keys;
+            this.data = config.data;
             this.observers = {};
             that = this;
-            lite.Tbody.superclass.initialize.call(this,options);
+            lite.Tbody.superclass.initialize.call(this,config);
             return this;
         },
         build: function () {
