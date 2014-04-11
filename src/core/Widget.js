@@ -5,7 +5,6 @@
         initialize: function (config) {
             this.config = config;
             this.setProperties().load();
-            lite.instance[this.id] = this;
             return this;
         },
         setProperties: function () {
@@ -21,8 +20,9 @@
             var config = this.config;
             this.type = config.type || 'widget';
             this.mode = config.mode || 'load';
+            this.id = config.id || lite.cid(this.type);
             if (!lite.getWidget(config.id)) {
-                (this.id = config.id) || lite.cid(this.type);
+                lite.instance[this.id] = this;
             } else {
                 throw new Error("ID为 '" + config.id + "' 的组件已存在！");
             }
@@ -41,7 +41,7 @@
             } else {
                 this.$this = config.$this || $('<div class="' + this.className + '"></div>');
             }
-            this.$this.attr('data-widget', this.id);
+            this.$this.attr('data-widget', this.id).addClass(this.className);
             return this;
         },
         setMember: function () {
@@ -50,7 +50,7 @@
             return this;
         },
         setData: function () {
-            var config =  this.config;
+            var config = this.config;
             this.url = config.url || '';
             this.data = config.data || null;
             return this;

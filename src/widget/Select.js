@@ -37,7 +37,6 @@
         _toggleOption: function () {
             var id = $(this).parent().parent().attr('data-widget'),
                 that = lite.getWidget(id);
-            console.dir(id);
             that.$option.toggle();
         },
         _hideOption: function () {
@@ -45,17 +44,12 @@
                 that = lite.getWidget(id),
                 index = $(this).index();
             that.$option.hide();
-            console.log(index);
-            console.log(that.data);
-            console.log(that.data[index]);
             that.val($(this).index());
         },
         val: function (index) {
-            console.log(typeof index === 'undefined');
             if (typeof index === 'undefined') {
                 return this.$title.attr('data-value');
             } else {
-                console.log(this.data[index]);
                 this.$title.attr('data-value', this.data[index].id || this.data[index].name).html(this.data[index].name);
                 return this;
             }

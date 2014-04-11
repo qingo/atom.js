@@ -7,8 +7,8 @@
             lite.Form.superclass.initialize.call(this, config);
             return this;
         },
-        setMember: function (config) {
-            this.member = config.member || [];
+        setMember: function () {
+            this.member = this.config.member || [];
             return this;
         }
     })
