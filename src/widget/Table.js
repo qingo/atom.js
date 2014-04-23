@@ -2,6 +2,14 @@
     var lite = window.lite;
 
     lite.Table = lite.Widget.extend({
+        /**
+         * @name Table
+         * @Class 表格组件类
+         * @memberof lite
+         * @extend lite.Widget
+         * @param {object} config
+         * @returns {lite.Widget}
+         */
         initialize: function (config) {
             lite.isObject(config) || (config = {});
             config.type = 'table';
@@ -10,10 +18,21 @@
             lite.Table.superclass.initialize.call(this, config);
             return this;
         },
-        setMember: function(config){
+        /**
+         * @name lite.Table#setMember
+         * @desc 设置成员属性
+         */
+        setMember: function(){
+            var config = this.config;
             this.header = config.header;
             this.keys = config.keys;
+            return this;
         },
+        /**
+         * @name lite.Table#build
+         * @desc Table组件的构建者
+         * @returns {window.lite.Table}
+         */
         build: function () {
             this.thead = new lite.Thead({
                 parent: this,
@@ -32,6 +51,13 @@
             });
             return this;
         },
+        /**
+         * @name lite.Table#refresh
+         * @desc 刷新表格
+         * @param url
+         * @param data
+         * @returns {window.lite.Table}
+         */
         refresh: function (url, data) {
             lite.isString(url) || (url = url.toUrl());
             this.tbody.refresh(data);

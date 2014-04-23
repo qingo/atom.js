@@ -1,3 +1,7 @@
+/**
+ * @file 权限配置页面
+ * @desc 组件ID与组件相对应
+ */
 (function(window){
     var lite = window.lite;
     lite.rightIndex = {

@@ -1,6 +1,14 @@
 (function (window, $) {
     var lite = window.lite;
     lite.Thead = lite.Widget.extend({
+        /**
+         * @name Thead
+         * @Class 表格组件类
+         * @memberof lite
+         * @extend lite.Widget
+         * @param {object} config
+         * @returns {lite.Widget}
+         */
         initialize: function (config) {
             config = config || {};
             this.type = 'thead';
@@ -9,6 +17,10 @@
             lite.Thead.superclass.initialize.call(this,config);
             return this;
         },
+        /**
+         * @method lite.Tbody#build
+         * @desc 构建组件
+         */
         build: function () {
             var c = 0;
             this.$this.html(create(this.content));

@@ -1,3 +1,6 @@
+/**
+ * @file 配置页面
+ */
 (function (window, $) {
     var lite = window.lite;
     lite.template = {

@@ -1,7 +1,14 @@
 (function (window, $) {
     var lite = window.lite, that;
     lite.Tbody = lite.Widget.extend({
-        Implements: lite.observer,
+        /**
+         * @name Tbody
+         * @Class 表格组件类
+         * @memberof lite
+         * @extend lite.Widget
+         * @param {object} config
+         * @returns {lite.Widget}
+         */
         initialize: function (config) {
             this.type = 'tbody';
             this.$this = $('<div class="table-body clr"></div>');
@@ -16,6 +23,10 @@
             lite.Tbody.superclass.initialize.call(this,config);
             return this;
         },
+        /**
+         * @method lite.Tbody#build
+         * @desc 构建组件
+         */
         build: function () {
             var html = '',
                 keys = this.keys,
@@ -30,11 +41,19 @@
             this.$this.html(html);
             return this;
         },
+        /**
+         * @method lite.Tbody#refresh
+         * @desc 刷新组件
+         */
         refresh: function (data) {
             this.data = data;
             this.build();
             return this;
         },
+        /**
+         * @method lite.Tbody#submit
+         * @desc 提交组件
+         */
         submit: function () {
             var id = $(this).attr('data-id'),
                 url = that.url + '?id=' + id;

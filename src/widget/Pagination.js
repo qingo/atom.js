@@ -1,7 +1,14 @@
 (function (window, $) {
     var lite = window.lite, that;
     lite.Pagination = lite.Widget.extend({
-        Implements: lite.observer,
+        /**
+         * @name Pagination
+         * @Class 表格组件类
+         * @memberof lite
+         * @extend lite.Widget
+         * @param {object} config
+         * @returns {lite.Widget}
+         */
         initialize: function (config) {
             that = this;
             this.type = 'pagination';
@@ -9,17 +16,21 @@
             this.events = {
                 'click .usable': 'submit'
             };
-            this.observers = {};
-            this.setProperties(config.dataSize, config.cur, config.dataSizeInPage, config.SizeInPage);
             lite.Pagination.superclass.initialize.call(this,config);
             return this;
         },
-        setProperties: function (dataSize, cur, dataSizeInPage, SizeInPage) {
-            this.dataSize = +dataSize;
-            this.dataSizeInPage = +dataSizeInPage || 10;
+        /**
+         * @method lite.Pagination#setMember
+         * @desc 设置组件成员
+         * @returns {window.lite.Pagination}
+         */
+        setMember: function () {
+            var config = this.config;
+            this.dataSize = +config.dataSize;
+            this.dataSizeInPage = +config.dataSizeInPage || 10;
             this.size = Math.ceil(this.dataSize / this.dataSizeInPage);
-            this.sizeInPage = +SizeInPage || 10;
-            this.cur = +cur || 0;
+            this.sizeInPage = +config.SizeInPage || 10;
+            this.cur = +config.cur || 0;
             this.startPage = Math.floor(this.cur / 10) * 10;
             this.isFirst = !this.cur;
             this.isLast = !(this.size - this.cur > 1);
@@ -27,6 +38,11 @@
             this.isNext = !(this.size - this.startPage - this.sizeInPage > 0);
             return this;
         },
+        /**
+         * @method lite.Pagination#build
+         * @desc 构建分页组件
+         * @returns {window.lite.Pagination}
+         */
         build: function () {
             var click = {'true': 'disabled', 'false': 'usable'},
                 isCurrent = {'true': 'current', 'false': 'usable'};
@@ -43,11 +59,23 @@
             this.$this.html(html);
             return this;
         },
+        /**
+         * @name lite.Pagination#refresh
+         * @desc 刷新
+         * @param url
+         * @returns {window.lite.Pagination}
+         */
         refresh: function (url) {
+            var config = this.config;
             url || (this.url = url);
-            this.setProperties(this.dataSize, 0, this.dataSizeInPage, this.SizeInPage).build();
+            config.cur = 0;
+            this.setMember().build();
             return this;
         },
+        /**
+         * @name lite.Pagination#submit
+         * @desc 提交
+         */
         submit: function () {
             var index = $(this).attr('data-index'),
                 isVector = /\+|\-/.test(index),
@@ -59,7 +87,8 @@
                     index = vector + that.startPage;
                 }
             }
-            that.setProperties(that.dataSize, index, that.dataSizeInPage, that.sizeInPage).build();
+            this.config.cur = index
+            that.setMember().build();
             lite.getJSON(this.url, function (data) {
                 var obs = that.observers,
                     k;

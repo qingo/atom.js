@@ -1,5 +1,9 @@
 (function (window, $) {
     var _cid = 0;
+    /**
+     * @namespace lite
+     * @type {{version: string, isObject: *, isString: *, isArray: (*|isArray), isFunction: *, each: (*|each), mix: mix, cid: cid, getJSON: getJSON, instance: {}, getWidget: getWidget}}
+     */
     window.lite = {
         version: '0.2.4',
         isObject: isType("Object"),
